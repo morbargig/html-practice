@@ -3,7 +3,7 @@
 #
 # CI_DISCOVER_SCOPE:
 #   root          — one row per presentation folder.
-#   presentation  — one row per exercise. Requires CI_PRESENTATION_DIR.
+#   presentation  — one row per chapter folder. Requires CI_PRESENTATION_DIR.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

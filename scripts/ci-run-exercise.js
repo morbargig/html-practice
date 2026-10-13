@@ -39,17 +39,7 @@ function writeRecord(record) {
   fs.mkdirSync(path.dirname(ndjsonPath), { recursive: true });
   fs.writeFileSync(ndjsonPath, `${JSON.stringify(record)}\n`);
   writeSummary(record);
-  console.log(`RESULT ${record.status} ${record.message}`);
-  process.exit(record.status === 'pass' ? 0 : 1);
-}
-
-function fromCache() {
-  if (!fs.existsSync(ndjsonPath)) {
-    throw new Error(`Cached result not found at ${ndjsonPath}`);
-  }
-  const record = JSON.parse(fs.readFileSync(ndjsonPath, 'utf8'));
-  record.source = 'cache';
-  writeRecord(record);
+  return record;
 }
 
 function required(name) {
@@ -60,7 +50,7 @@ function required(name) {
   return value;
 }
 
-function runExercise() {
+function runExercise(options = {}) {
   const mode = required('CI_MODE');
   const exerciseDir = required('CI_EXERCISE_DIR');
   const testFile = required('CI_TEST_FILE');
@@ -104,7 +94,7 @@ function runExercise() {
     message = detail.slice(0, 300) || 'Jest failed before reporting a check.';
   }
 
-  writeRecord({
+  const record = {
     student_github_username: process.env.PROGRESS_STUDENT_ID || process.env.GITHUB_ACTOR || 'local',
     last_run_utc: new Date().toISOString().replace(/\.\d{3}Z$/, 'Z'),
     mode,
@@ -118,16 +108,31 @@ function runExercise() {
     status,
     source: 'run',
     message,
-  });
+  };
+  console.log(`RESULT ${record.mode} ${record.status} ${record.message}`);
+  if (options.write !== false) {
+    return writeRecord(record);
+  }
+  return record;
 }
 
-try {
-  if (process.env.CI_FROM_CACHE === '1') {
-    fromCache();
-  } else {
-    runExercise();
-  }
-} catch (error) {
-  console.error(error && error.message ? error.message : error);
-  process.exit(1);
+function finish(record) {
+  process.exit(record.status === 'pass' ? 0 : 1);
 }
+
+if (require.main === module) {
+  try {
+    if (process.env.CI_FROM_CACHE === '1') {
+      const record = JSON.parse(fs.readFileSync(ndjsonPath, 'utf8'));
+      record.source = 'cache';
+      finish(writeRecord(record));
+    } else {
+      finish(runExercise());
+    }
+  } catch (error) {
+    console.error(error && error.message ? error.message : error);
+    process.exit(1);
+  }
+}
+
+module.exports = { runExercise };

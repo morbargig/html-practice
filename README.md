@@ -120,7 +120,7 @@ You can also open `index.html` with Live Server in VS Code. The tests do not nee
 
 `.github/workflows/exercise-tests.yml` runs when practice files, solutions, tests, or the workflow change. It reads the presentation folders on its own. A new numbered folder with a `test.js` becomes a check without editing the workflow.
 
-Each presentation is one collapsible group. Inside it, each exercise is one check. Open that check to see two steps: **Practice** (your `index.html`) and **Solutions** (the page in `solutions/`).
+Each presentation is one collapsible group. Inside it, each topic is one check, such as Text or Images and links. Open a topic to see its exercises, with practice and solutions together.
 
 The progress report groups the same folders. Each exercise is one row, with the practice result and the solution result side by side.
 

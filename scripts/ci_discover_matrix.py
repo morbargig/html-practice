@@ -3,7 +3,7 @@
 
 CI_DISCOVER_SCOPE:
   root            — one row per presentation folder.
-  presentation    — one row per exercise. Requires CI_PRESENTATION_DIR.
+  presentation    — one row per chapter folder. Requires CI_PRESENTATION_DIR.
 
 Writes the matrix to $GITHUB_OUTPUT, or prints it when that variable is unset.
 """
@@ -94,32 +94,29 @@ def scope_presentation(root: Path, presentation_dir: str) -> list[dict[str, str]
         chapter_match = CHAPTER_RE.match(chapter.name)
         if not chapter_match:
             continue
-        for exercise in sorted(p for p in chapter.iterdir() if p.is_dir()):
-            exercise_match = EXERCISE_RE.match(exercise.name)
-            test_file = exercise / "test.js"
-            if not exercise_match or not test_file.is_file():
-                continue
-            exercise_dir = f"{presentation_dir}/{chapter.name}/{exercise.name}"
-            include.append(
-                {
-                    "key": f"{presentation_number}__{chapter.name}__{exercise.name}",
-                    "presentation_dir": presentation_dir,
-                    "presentation_number": presentation_number,
-                    "presentation_title": presentation_label,
-                    "chapter_dir": chapter.name,
-                    "chapter_number": chapter_match.group(1),
-                    "chapter_title": humanize(chapter.name),
-                    "exercise_slug": exercise.name,
-                    "exercise_number": exercise_match.group(1),
-                    "exercise_dir": exercise_dir,
-                    "solution_dir": f"solutions/{exercise_dir}",
-                    "test_file": f"{exercise_dir}/test.js",
-                    "exercise_title": humanize(exercise.name),
-                    "job_title": f"{humanize(chapter.name)} › {humanize(exercise.name)}",
-                }
-            )
+        has_exercise = any(
+            EXERCISE_RE.match(exercise.name) and (exercise / "test.js").is_file()
+            for exercise in chapter.iterdir()
+            if exercise.is_dir()
+        )
+        if not has_exercise:
+            continue
+        include.append(
+            {
+                "key": f"{presentation_number}__{chapter.name}",
+                "presentation_dir": presentation_dir,
+                "presentation_number": presentation_number,
+                "presentation_title": presentation_label,
+                "chapter_dir": chapter.name,
+                "chapter_number": chapter_match.group(1),
+                "chapter_title": humanize(chapter.name),
+                "chapter_path": f"{presentation_dir}/{chapter.name}",
+                "solution_path": f"solutions/{presentation_dir}/{chapter.name}",
+                "job_title": humanize(chapter.name),
+            }
+        )
     if not include:
-        raise SystemExit(f"No exercises found in {presentation_dir}")
+        raise SystemExit(f"No chapters with exercises found in {presentation_dir}")
     return include
 
 
