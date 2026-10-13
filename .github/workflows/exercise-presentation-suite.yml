@@ -1,5 +1,7 @@
 name: Presentation exercise suite
 
+# Called once per presentation folder discovered in exercise-tests.yml.
+# Exercises come from the folders. Practice and solutions are steps on the same check.
 on:
   workflow_call:
     inputs:
@@ -9,10 +11,6 @@ on:
         type: string
       presentation_job_title:
         description: Title shown for this presentation
-        required: true
-        type: string
-      mode:
-        description: practice checks index.html; solutions checks solutions/
         required: true
         type: string
 
@@ -36,7 +34,6 @@ jobs:
         env:
           CI_DISCOVER_SCOPE: presentation
           CI_PRESENTATION_DIR: ${{ inputs.presentation_dir }}
-          CI_MODE: ${{ inputs.mode }}
         run: bash scripts/ci-discover-matrix.sh
 
   test_exercises:
@@ -64,26 +61,25 @@ jobs:
 
       - name: Restore cached practice result
         id: practice_cache
-        if: inputs.mode == 'practice'
         uses: actions/cache@v5
         with:
-          path: reports/exercise-result.ndjson
+          path: reports/practice.ndjson
           key: html-practice-${{ matrix.key }}-${{ hashFiles(format('{0}/**', matrix.exercise_dir), 'lib/**', 'jest.config.js', 'package-lock.json') }}
 
       - name: Restore cached solution result
         id: solution_cache
-        if: inputs.mode == 'solutions'
         uses: actions/cache@v5
         with:
-          path: reports/exercise-result.ndjson
+          path: reports/solutions.ndjson
           key: html-solutions-${{ matrix.key }}-${{ hashFiles(matrix.test_file, format('{0}/**', matrix.solution_dir), 'lib/**', 'jest.config.js', 'package-lock.json') }}
 
-      - name: Run this exercise
-        id: exercise
-        if: steps.practice_cache.outputs.cache-hit != 'true' && steps.solution_cache.outputs.cache-hit != 'true'
+      - name: Practice
+        id: practice
+        if: steps.practice_cache.outputs.cache-hit != 'true'
         continue-on-error: true
         env:
-          CI_MODE: ${{ matrix.mode }}
+          CI_MODE: practice
+          CI_RESULT_NDJSON: ${{ github.workspace }}/reports/practice.ndjson
           CI_EXERCISE_DIR: ${{ matrix.exercise_dir }}
           CI_TEST_FILE: ${{ matrix.test_file }}
           CI_PRESENTATION_NUMBER: ${{ matrix.presentation_number }}
@@ -95,30 +91,61 @@ jobs:
           PROGRESS_STUDENT_ID: ${{ github.actor }}
         run: node scripts/ci-run-exercise.js
 
-      - name: Record cached result
-        id: cached
-        if: steps.practice_cache.outputs.cache-hit == 'true' || steps.solution_cache.outputs.cache-hit == 'true'
+      - name: Practice (cached)
+        id: practice_cached
+        if: steps.practice_cache.outputs.cache-hit == 'true'
         continue-on-error: true
         env:
           CI_FROM_CACHE: "1"
+          CI_RESULT_NDJSON: ${{ github.workspace }}/reports/practice.ndjson
         run: node scripts/ci-run-exercise.js
 
-      - name: Stage NDJSON shard
+      - name: Solutions
+        id: solutions
+        if: steps.solution_cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        env:
+          CI_MODE: solutions
+          CI_RESULT_NDJSON: ${{ github.workspace }}/reports/solutions.ndjson
+          CI_EXERCISE_DIR: ${{ matrix.exercise_dir }}
+          CI_TEST_FILE: ${{ matrix.test_file }}
+          CI_PRESENTATION_NUMBER: ${{ matrix.presentation_number }}
+          CI_PRESENTATION_TITLE: ${{ matrix.presentation_title }}
+          CI_CHAPTER_NUMBER: ${{ matrix.chapter_number }}
+          CI_CHAPTER_TITLE: ${{ matrix.chapter_title }}
+          CI_EXERCISE_NUMBER: ${{ matrix.exercise_number }}
+          CI_EXERCISE_SLUG: ${{ matrix.exercise_slug }}
+          PROGRESS_STUDENT_ID: ${{ github.actor }}
+        run: node scripts/ci-run-exercise.js
+
+      - name: Solutions (cached)
+        id: solutions_cached
+        if: steps.solution_cache.outputs.cache-hit == 'true'
+        continue-on-error: true
+        env:
+          CI_FROM_CACHE: "1"
+          CI_RESULT_NDJSON: ${{ github.workspace }}/reports/solutions.ndjson
+        run: node scripts/ci-run-exercise.js
+
+      - name: Stage result shards
         if: always()
         run: |
           mkdir -p reports/ci-shards
-          if [[ -s reports/exercise-result.ndjson ]]; then
-            cp reports/exercise-result.ndjson "reports/ci-shards/${{ matrix.key }}.ndjson"
-          fi
+          cp reports/practice.ndjson "reports/ci-shards/${{ matrix.key }}--practice.ndjson"
+          cp reports/solutions.ndjson "reports/ci-shards/${{ matrix.key }}--solutions.ndjson"
 
       - name: Upload result shard
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: matrix-ndjson-${{ matrix.key }}
-          path: reports/ci-shards/${{ matrix.key }}.ndjson
+          path: reports/ci-shards/
           if-no-files-found: ignore
 
       - name: Propagate test failure
-        if: steps.exercise.outcome == 'failure' || steps.cached.outcome == 'failure'
+        if: >-
+          steps.practice.outcome == 'failure' ||
+          steps.practice_cached.outcome == 'failure' ||
+          steps.solutions.outcome == 'failure' ||
+          steps.solutions_cached.outcome == 'failure'
         run: exit 1

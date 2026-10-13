@@ -2,8 +2,8 @@
 """Emit a GitHub Actions matrix for the HTML practice folders.
 
 CI_DISCOVER_SCOPE:
-  root            — one row per presentation and mode (practice, solutions).
-  presentation    — one row per exercise. Requires CI_PRESENTATION_DIR and CI_MODE.
+  root            — one row per presentation folder.
+  presentation    — one row per exercise. Requires CI_PRESENTATION_DIR.
 
 Writes the matrix to $GITHUB_OUTPUT, or prints it when that variable is unset.
 """
@@ -23,9 +23,6 @@ PRESENTATION_TITLES = {
     "01-setting-up-html-development-environment": "Setting up HTML",
     "02-introduction-to-html": "Introduction to HTML",
 }
-
-MODES = ("practice", "solutions")
-
 
 def repo_root() -> Path:
     for key in ("GITHUB_WORKSPACE", "CI_REPO_ROOT"):
@@ -71,23 +68,19 @@ def scope_root(root: Path) -> list[dict[str, str]]:
     for presentation in presentations(root):
         number = PRESENTATION_RE.match(presentation.name).group(1)
         title = presentation_title(presentation.name)
-        for mode in MODES:
-            include.append(
-                {
-                    "key": f"{number}__{mode}",
-                    "presentation_dir": presentation.name,
-                    "mode": mode,
-                    "job_title": f"{number} · {title} · {mode}",
-                }
-            )
+        include.append(
+            {
+                "key": f"{number}__presentation",
+                "presentation_dir": presentation.name,
+                "job_title": f"{number} · {title}",
+            }
+        )
     if not include:
         raise SystemExit("No presentation folders found.")
     return include
 
 
-def scope_presentation(root: Path, presentation_dir: str, mode: str) -> list[dict[str, str]]:
-    if mode not in MODES:
-        raise SystemExit(f"CI_MODE must be practice or solutions, got {mode!r}")
+def scope_presentation(root: Path, presentation_dir: str) -> list[dict[str, str]]:
     presentation = root / presentation_dir
     if not presentation.is_dir():
         raise SystemExit(f"Presentation folder not found: {presentation_dir}")
@@ -109,7 +102,7 @@ def scope_presentation(root: Path, presentation_dir: str, mode: str) -> list[dic
             exercise_dir = f"{presentation_dir}/{chapter.name}/{exercise.name}"
             include.append(
                 {
-                    "key": f"{presentation_number}__{chapter.name}__{exercise.name}__{mode}",
+                    "key": f"{presentation_number}__{chapter.name}__{exercise.name}",
                     "presentation_dir": presentation_dir,
                     "presentation_number": presentation_number,
                     "presentation_title": presentation_label,
@@ -121,10 +114,8 @@ def scope_presentation(root: Path, presentation_dir: str, mode: str) -> list[dic
                     "exercise_dir": exercise_dir,
                     "solution_dir": f"solutions/{exercise_dir}",
                     "test_file": f"{exercise_dir}/test.js",
-                    "mode": mode,
-                    "job_title": (
-                        f"{presentation_number} › {humanize(chapter.name)} › {humanize(exercise.name)}"
-                    ),
+                    "exercise_title": humanize(exercise.name),
+                    "job_title": f"{humanize(chapter.name)} › {humanize(exercise.name)}",
                 }
             )
     if not include:
@@ -139,10 +130,9 @@ def main() -> None:
         include = scope_root(root)
     elif scope == "presentation":
         presentation_dir = os.environ.get("CI_PRESENTATION_DIR", "").strip()
-        mode = os.environ.get("CI_MODE", "").strip()
-        if not presentation_dir or not mode:
-            raise SystemExit("presentation scope requires CI_PRESENTATION_DIR and CI_MODE")
-        include = scope_presentation(root, presentation_dir, mode)
+        if not presentation_dir:
+            raise SystemExit("presentation scope requires CI_PRESENTATION_DIR")
+        include = scope_presentation(root, presentation_dir)
     else:
         raise SystemExit(f"Invalid CI_DISCOVER_SCOPE={scope!r}")
     emit_matrix(include)

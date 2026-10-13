@@ -118,20 +118,15 @@ You can also open `index.html` with Live Server in VS Code. The tests do not nee
 
 ## GitHub Actions
 
-`.github/workflows/exercise-tests.yml` runs when practice files, solutions, tests, or the workflow change. Each presentation is its own group, and each exercise is its own check, for the practice page and for the reference solution.
+`.github/workflows/exercise-tests.yml` runs when practice files, solutions, tests, or the workflow change. It reads the presentation folders on its own. A new numbered folder with a `test.js` becomes a check without editing the workflow.
 
-Open a run to see the folders:
+Each presentation is one collapsible group. Inside it, each exercise is one check. Open that check to see two steps: **Practice** (your `index.html`) and **Solutions** (the page in `solutions/`).
 
-| Check | What it shows |
-| --- | --- |
-| `01 · Setting up HTML · practice` | Every exercise in presentation 01, using your `index.html` |
-| `02 · Introduction to HTML · practice` | Every exercise in presentation 02 |
-| `… · solutions` | The same exercises against the pages in `solutions/` |
-| Progress report | One table for the whole run: passed, failed, and whether a result was cached |
+The progress report groups the same folders. Each exercise is one row, with the practice result and the solution result side by side.
 
 An exercise runs only when its page, test, or shared test code changed. An unchanged exercise reuses its cached result and finishes without running Jest again.
 
-The practice checks stay red until the exercises are solved. The solution checks should stay green. That second set tells you the tests still describe the tasks correctly.
+Practice stays red until the exercise is solved. Solutions should stay green. That shows the tests still describe the tasks correctly.
 
 ## Recommended order
 

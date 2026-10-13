@@ -47,58 +47,83 @@ def summarize(records: list[dict], mode: str) -> dict:
     }
 
 
-def group_rows(records: list[dict]) -> list[dict]:
-    groups: dict[tuple, list] = defaultdict(list)
+def cell(row) -> str:
+    if not row:
+        return "—"
+    how = "cache" if row.get("source") == "cache" else "ran"
+    return f"{icon(row.get('status', ''))} **{row.get('status', '')}** · {how}"
+
+
+def chapters(records: list[dict]) -> list[dict]:
+    """One entry per presentation chapter, with practice and solutions on the same exercise."""
+    grouped: dict[tuple, dict] = defaultdict(dict)
+    meta: dict[tuple, dict] = {}
     for row in records:
-        key = (
-            row.get("mode", ""),
+        chapter_key = (
             row.get("presentation_number", ""),
             row.get("presentation_title", ""),
             row.get("chapter_number", ""),
             row.get("chapter_title", ""),
         )
-        groups[key].append(row)
+        exercise_key = (row.get("exercise_number", ""), row.get("exercise_slug", ""))
+        grouped[chapter_key].setdefault(exercise_key, {})[row.get("mode", "")] = row
+        meta[chapter_key] = {
+            "presentation_number": chapter_key[0],
+            "presentation_title": chapter_key[1],
+            "chapter_number": chapter_key[2],
+            "chapter_title": chapter_key[3],
+        }
     ordered = []
-    for key in sorted(groups):
-        mode, presentation_number, presentation_title, chapter_number, chapter_title = key
-        exercises = sorted(groups[key], key=lambda row: (row.get("exercise_number", ""), row.get("exercise_slug", "")))
-        ordered.append(
-            {
-                "mode": mode,
-                "presentation_number": presentation_number,
-                "presentation_title": presentation_title,
-                "chapter_number": chapter_number,
-                "chapter_title": chapter_title,
-                "exercises": exercises,
-            }
-        )
+    for chapter_key in sorted(meta):
+        exercises = []
+        for exercise_key in sorted(grouped[chapter_key]):
+            modes = grouped[chapter_key][exercise_key]
+            sample = next(iter(modes.values()))
+            exercises.append(
+                {
+                    "exercise_number": sample.get("exercise_number", ""),
+                    "exercise_slug": sample.get("exercise_slug", ""),
+                    "practice": modes.get("practice"),
+                    "solutions": modes.get("solutions"),
+                }
+            )
+        ordered.append({**meta[chapter_key], "exercises": exercises})
     return ordered
+
+
+def presentations(chapter_rows: list[dict]) -> list[dict]:
+    grouped: dict[tuple, list] = defaultdict(list)
+    for chapter in chapter_rows:
+        grouped[(chapter["presentation_number"], chapter["presentation_title"])].append(chapter)
+    return [
+        {"presentation_number": key[0], "presentation_title": key[1], "chapters": grouped[key]}
+        for key in sorted(grouped)
+    ]
 
 
 def markdown_table(records: list[dict]) -> str:
     lines = [
         "# HTML exercise progress",
         "",
-        "| Mode | Passed | Failed | Cached | Ran now | Progress |",
+        "| | Passed | Failed | Cached | Ran now | Progress |",
         "| --- | ---: | ---: | ---: | ---: | ---: |",
     ]
-    for mode in ("practice", "solutions"):
+    for mode, label in (("practice", "Practice"), ("solutions", "Solutions")):
         summary = summarize(records, mode)
         lines.append(
-            f"| {mode} | {summary['passed']} | {summary['failed']} | {summary['cached']} | {summary['ran']} | **{summary['percent']}%** |"
+            f"| {label} | {summary['passed']} | {summary['failed']} | {summary['cached']} | {summary['ran']} | **{summary['percent']}%** |"
         )
     lines.append("")
-    for group in group_rows(records):
+    for chapter in chapters(records):
         lines.append(
-            f"## {group['presentation_number']} · {group['presentation_title']} — {group['mode']} — {group['chapter_title']}"
+            f"## {chapter['presentation_number']} · {chapter['presentation_title']} — {chapter['chapter_title']}"
         )
         lines.append("")
-        lines.append("| # | Exercise | Status | How | Notes |")
-        lines.append("| ---: | --- | --- | --- | --- |")
-        for exercise in group["exercises"]:
-            note = (exercise.get("message") or "").replace("|", "\\|")
+        lines.append("| # | Exercise | Practice | Solutions |")
+        lines.append("| ---: | --- | --- | --- |")
+        for exercise in chapter["exercises"]:
             lines.append(
-                f"| {exercise.get('exercise_number', '')} | `{exercise.get('exercise_slug', '')}` | **{exercise.get('status', '')}** | {exercise.get('source', '')} | {note} |"
+                f"| {exercise['exercise_number']} | `{exercise['exercise_slug']}` | {cell(exercise['practice'])} | {cell(exercise['solutions'])} |"
             )
         lines.append("")
     return "\n".join(lines).rstrip() + "\n"
@@ -106,26 +131,32 @@ def markdown_table(records: list[dict]) -> str:
 
 def job_summary(records: list[dict]) -> str:
     lines = ["### HTML exercise results", ""]
-    for mode in ("practice", "solutions"):
+    for mode, label in (("practice", "Practice"), ("solutions", "Solutions")):
         summary = summarize(records, mode)
-        label = "Practice pages" if mode == "practice" else "Reference solutions"
         lines.append(f"**{label}** `{bar(summary['percent'])}` **{summary['percent']}%**")
         lines.append("")
         lines.append(
             f"{summary['passed']} passed · {summary['failed']} failed · {summary['cached']} from cache · {summary['ran']} ran now"
         )
         lines.append("")
-    for group in group_rows(records):
+    for presentation in presentations(chapters(records)):
+        exercise_count = sum(len(chapter["exercises"]) for chapter in presentation["chapters"])
+        lines.append("<details>")
         lines.append(
-            f"#### {group['presentation_number']} · {group['presentation_title']} — {group['chapter_title']} ({group['mode']})"
+            f"<summary><strong>{presentation['presentation_number']} · {presentation['presentation_title']}</strong> — {exercise_count} exercises</summary>"
         )
         lines.append("")
-        lines.append("| | Exercise | Status | How |")
-        lines.append("| --- | --- | --- | --- |")
-        for exercise in group["exercises"]:
-            lines.append(
-                f"| {exercise.get('exercise_number', '')} | `{exercise.get('exercise_slug', '')}` | {icon(exercise.get('status', ''))} **{exercise.get('status', '')}** | {exercise.get('source', '')} |"
-            )
+        for chapter in presentation["chapters"]:
+            lines.append(f"**{chapter['chapter_title']}**")
+            lines.append("")
+            lines.append("| | Exercise | Practice | Solutions |")
+            lines.append("| --- | --- | --- | --- |")
+            for exercise in chapter["exercises"]:
+                lines.append(
+                    f"| {exercise['exercise_number']} | `{exercise['exercise_slug']}` | {cell(exercise['practice'])} | {cell(exercise['solutions'])} |"
+                )
+            lines.append("")
+        lines.append("</details>")
         lines.append("")
     lines.append("Download the **progress-reports** artifact for the full Markdown and JSON report.")
     lines.append("")
@@ -147,7 +178,7 @@ def main() -> None:
     output.mkdir(parents=True, exist_ok=True)
     report = {
         "summary": {mode: summarize(records, mode) for mode in ("practice", "solutions")},
-        "groups": group_rows(records),
+        "chapters": chapters(records),
     }
     (output / "progress.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     (output / "progress-report.md").write_text(markdown_table(records), encoding="utf-8")

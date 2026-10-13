@@ -81,7 +81,6 @@ jobs:
     with:
       presentation_dir: ${{ matrix.presentation_dir }}
       presentation_job_title: ${{ matrix.job_title }}
-      mode: ${{ matrix.mode }}
 
   aggregate_reports:
     name: Progress report

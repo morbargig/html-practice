@@ -18,8 +18,9 @@ function writeSummary(record) {
   }
   const icon = record.status === 'pass' ? '✅' : '❌';
   const how = record.source === 'cache' ? 'cached result' : 'ran now';
+  const label = record.mode === 'solutions' ? 'Solutions' : 'Practice';
   const lines = [
-    `### ${record.presentation_number} › ${record.chapter_title} › ${record.exercise_slug}`,
+    `### ${label} · ${record.chapter_title} › ${record.exercise_slug}`,
     '',
     '| | |',
     '| --- | --- |',
