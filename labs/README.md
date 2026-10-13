@@ -2,6 +2,8 @@
 
 Practice HTML in the browser. Each lab is a notebook with exercises, a live preview, and automated checks.
 
+The numbered practice folders in the repository continue the same subjects. Start with [presentation 01](../01-setting-up-html-development-environment/) and then [presentation 02](../02-introduction-to-html/).
+
 Open a lab in Colab and select **File → Save a copy in Drive**. Work only on your own copy.
 
 Assignments and class materials are in [Google Classroom](https://classroom.google.com/w/ODkxNzk1OTQwMDY3/t/all).

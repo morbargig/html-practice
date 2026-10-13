@@ -30,6 +30,17 @@ Topics:
 
 Open the lab in Colab and select **File → Save a copy in Drive**. Work only on your own copy.
 
+The same lab is described in [labs/README.md](labs/README.md).
+
+## Recommended order
+
+Finish presentation 01 before presentation 02. Inside a presentation, finish each chapter before the next one.
+
+| Presentation | Chapters |
+| --- | --- |
+| [01 — Setting Up Your HTML Development Environment](01-setting-up-html-development-environment/) | Text, Images and Links, Tables and Forms, Head and Metadata, Personal Profile |
+| [02 — Introduction to HTML](02-introduction-to-html/) | Text, Links, Lists, Semantic Structure, Media and Embeds, Forms, Pages |
+
 ## Who it is for
 
 Students who are new to HTML and can open a folder in VS Code. You edit `index.html`. In [Link a Stylesheet](01-setting-up-html-development-environment/04-head-and-metadata/03-link-a-stylesheet/), you also connect a `style.css` file. You do not need a browser to run the tests.
@@ -55,7 +66,8 @@ Leave these files as they are:
 - `test.js` in each practice
 - `lib/`
 - `package.json`, `package-lock.json`, and `jest.config.js`
-- `.github/workflows/tests.yml`
+- `.github/workflows/`
+- `scripts/ci-*`
 - `solutions/`
 
 `solutions/` holds one finished page per practice so the tests themselves can be checked. Try the exercise before you open a solution.
@@ -118,21 +130,17 @@ You can also open `index.html` with Live Server in VS Code. The tests do not nee
 
 ## GitHub Actions
 
-`.github/workflows/exercise-tests.yml` runs when practice files, solutions, tests, or the workflow change. It reads the presentation folders on its own. A new numbered folder with a `test.js` becomes a check without editing the workflow.
+`.github/workflows/exercise-tests.yml` runs when a presentation, a solution, a test, or the workflow changes. It reads the numbered folders. A new presentation or chapter shows up as its own check. A new exercise is picked up inside its chapter. You do not edit the workflow to add either one.
 
-Each presentation is one collapsible group. Inside it, each topic is one check, such as Text or Images and links. Open a topic to see its exercises, with practice and solutions together.
+On the Actions page, open and close each presentation:
 
-The progress report groups the same folders. Each exercise is one row, with the practice result and the solution result side by side.
-
-An exercise runs only when its page, test, or shared test code changed. An unchanged exercise reuses its cached result and finishes without running Jest again.
-
-Practice stays red until the exercise is solved. Solutions should stay green. That shows the tests still describe the tasks correctly.
-
-## Recommended order
-
-Finish presentation 01 before presentation 02. Inside a presentation, finish each chapter before the next one.
-
-| Presentation | Chapters |
+| Group | Topics |
 | --- | --- |
-| [01 — Setting Up Your HTML Development Environment](01-setting-up-html-development-environment/) | Text, Images and Links, Tables and Forms, Head and Metadata, Personal Profile |
-| [02 — Introduction to HTML](02-introduction-to-html/) | Text, Links, Lists, Semantic Structure, Media and Embeds, Forms, Pages |
+| 01 · Setting up HTML | Text, Images and links, Tables and forms, Head and metadata, Personal profile |
+| 02 · Introduction to HTML | Text, Links, Lists, Semantic structure, Media and embeds, Forms, Pages |
+
+Open a topic to see that chapter's exercises. Each exercise is checked twice: the practice `index.html`, then the matching page in `solutions/`.
+
+A topic runs again when a page, test, or shared test file in that chapter changes. An unchanged topic reuses its cached result.
+
+Practice results stay red until those pages are solved. Solution results should stay green. The progress report lists every exercise on one row, with both results side by side.
