@@ -1,0 +1,124 @@
+name: Presentation exercise suite
+
+on:
+  workflow_call:
+    inputs:
+      presentation_dir:
+        description: Presentation folder at the repository root
+        required: true
+        type: string
+      presentation_job_title:
+        description: Title shown for this presentation
+        required: true
+        type: string
+      mode:
+        description: practice checks index.html; solutions checks solutions/
+        required: true
+        type: string
+
+run-name: ${{ inputs.presentation_job_title }}
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  discover_exercises:
+    name: Discover exercises
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.set_matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Discover exercises in this presentation
+        id: set_matrix
+        env:
+          CI_DISCOVER_SCOPE: presentation
+          CI_PRESENTATION_DIR: ${{ inputs.presentation_dir }}
+          CI_MODE: ${{ inputs.mode }}
+        run: bash scripts/ci-discover-matrix.sh
+
+  test_exercises:
+    name: ${{ matrix.job_title }}
+    needs: discover_exercises
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.discover_exercises.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Download dependency bundle
+        uses: actions/download-artifact@v8
+        with:
+          name: ci-node-modules
+          path: downloaded/
+
+      - name: Extract dependencies
+        run: tar -xzf downloaded/node_modules.tgz
+
+      - name: Restore cached practice result
+        id: practice_cache
+        if: inputs.mode == 'practice'
+        uses: actions/cache@v5
+        with:
+          path: reports/exercise-result.ndjson
+          key: html-practice-${{ matrix.key }}-${{ hashFiles(format('{0}/**', matrix.exercise_dir), 'lib/**', 'jest.config.js', 'package-lock.json') }}
+
+      - name: Restore cached solution result
+        id: solution_cache
+        if: inputs.mode == 'solutions'
+        uses: actions/cache@v5
+        with:
+          path: reports/exercise-result.ndjson
+          key: html-solutions-${{ matrix.key }}-${{ hashFiles(matrix.test_file, format('{0}/**', matrix.solution_dir), 'lib/**', 'jest.config.js', 'package-lock.json') }}
+
+      - name: Run this exercise
+        id: exercise
+        if: steps.practice_cache.outputs.cache-hit != 'true' && steps.solution_cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        env:
+          CI_MODE: ${{ matrix.mode }}
+          CI_EXERCISE_DIR: ${{ matrix.exercise_dir }}
+          CI_TEST_FILE: ${{ matrix.test_file }}
+          CI_PRESENTATION_NUMBER: ${{ matrix.presentation_number }}
+          CI_PRESENTATION_TITLE: ${{ matrix.presentation_title }}
+          CI_CHAPTER_NUMBER: ${{ matrix.chapter_number }}
+          CI_CHAPTER_TITLE: ${{ matrix.chapter_title }}
+          CI_EXERCISE_NUMBER: ${{ matrix.exercise_number }}
+          CI_EXERCISE_SLUG: ${{ matrix.exercise_slug }}
+          PROGRESS_STUDENT_ID: ${{ github.actor }}
+        run: node scripts/ci-run-exercise.js
+
+      - name: Record cached result
+        id: cached
+        if: steps.practice_cache.outputs.cache-hit == 'true' || steps.solution_cache.outputs.cache-hit == 'true'
+        continue-on-error: true
+        env:
+          CI_FROM_CACHE: "1"
+        run: node scripts/ci-run-exercise.js
+
+      - name: Stage NDJSON shard
+        if: always()
+        run: |
+          mkdir -p reports/ci-shards
+          if [[ -s reports/exercise-result.ndjson ]]; then
+            cp reports/exercise-result.ndjson "reports/ci-shards/${{ matrix.key }}.ndjson"
+          fi
+
+      - name: Upload result shard
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: matrix-ndjson-${{ matrix.key }}
+          path: reports/ci-shards/${{ matrix.key }}.ndjson
+          if-no-files-found: ignore
+
+      - name: Propagate test failure
+        if: steps.exercise.outcome == 'failure' || steps.cached.outcome == 'failure'
+        run: exit 1

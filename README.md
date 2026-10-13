@@ -118,16 +118,20 @@ You can also open `index.html` with Live Server in VS Code. The tests do not nee
 
 ## GitHub Actions
 
-`.github/workflows/tests.yml` runs on every push and pull request. It checks out the repository, installs Node.js 24, installs dependencies, and runs the tests.
+`.github/workflows/exercise-tests.yml` runs when practice files, solutions, tests, or the workflow change. Each presentation is its own group, and each exercise is its own check, for the practice page and for the reference solution.
 
-Two jobs run:
+Open a run to see the folders:
 
-| Job | What it checks |
+| Check | What it shows |
 | --- | --- |
-| Practice exercises | Your `index.html` files inside the presentation folders |
-| Reference solutions | The pages in `solutions/` |
+| `01 · Setting up HTML · practice` | Every exercise in presentation 01, using your `index.html` |
+| `02 · Introduction to HTML · practice` | Every exercise in presentation 02 |
+| `… · solutions` | The same exercises against the pages in `solutions/` |
+| Progress report | One table for the whole run: passed, failed, and whether a result was cached |
 
-The practice job stays red until the exercises are solved. The reference job should stay green. That second job tells you the tests still describe the tasks correctly.
+An exercise runs only when its page, test, or shared test code changed. An unchanged exercise reuses its cached result and finishes without running Jest again.
+
+The practice checks stay red until the exercises are solved. The solution checks should stay green. That second set tells you the tests still describe the tasks correctly.
 
 ## Recommended order
 
