@@ -10,7 +10,22 @@ Assignments and class materials are in [Google Classroom](https://classroom.goog
 
 ## 🧪 Interactive Colab Labs
 
-Practice HTML directly in your browser with interactive exercises, live previews, and automated tests.
+Practice HTML in the browser with interactive exercises and a live preview. Lab 01 also includes automated checks. Students run each lab in Colab from their own fork.
+
+1. Fork this repository on GitHub.
+2. In your fork, replace `morbargig` in each **Open in Colab** link with your own GitHub username.
+3. Open the lab from that updated link.
+4. In Colab, select **File → Save a copy in Drive**. Work only on your own copy.
+
+A link in this repository looks like this:
+
+`https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/lab-01-html-fundamentals.ipynb`
+
+After the fork, the same link uses your username:
+
+`https://colab.research.google.com/github/YOUR_USERNAME/html-practice/blob/main/labs/lab-01-html-fundamentals.ipynb`
+
+Finish Lab 01 before Lab 02. Both labs are described in [labs/README.md](labs/README.md).
 
 ### Lab 01 — HTML Fundamentals
 
@@ -28,7 +43,36 @@ Topics:
 - Final About Me exercise
 - Automated HTML validation
 
-Open the lab in Colab and select **File → Save a copy in Drive**. Work only on your own copy.
+### Lab 02 — Advanced HTML & Native Interactivity
+
+**HTML Lesson 3: Beyond the Basics.** Build an interactive student portal with HTML only.
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
+
+Notebook: [labs/Lab_02_Advanced_HTML_Native_Interactivity.ipynb](labs/Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
+
+The notebook saves each exercise as an HTML file and previews it in Colab.
+
+- Setup: HTML preview helper
+- Exercise A — Attributes and advanced inputs
+- Exercise B — Fieldset, legend, and datalist
+- Exercise C — Native interactive HTML
+- Exercise D — Progress and meter
+- Final challenge — Interactive student portal
+- Self-check and reflection
+
+Topics: attributes, advanced inputs, fieldsets, datalist, details/summary, popovers, dialogs, progress, and meter.
+
+Colab's preview can restrict popovers and dialogs. Download the HTML file and open it in a current browser with VS Code and Live Server. Dialog buttons use `command` and `commandfor`, which need a current browser. The page uses HTML only.
+
+## Recommended order
+
+Finish presentation 01 before presentation 02. Inside a presentation, finish each chapter before the next one.
+
+| Presentation | Chapters |
+| --- | --- |
+| [01 — Setting Up Your HTML Development Environment](01-setting-up-html-development-environment/) | Text, Images and Links, Tables and Forms, Head and Metadata, Personal Profile |
+| [02 — Introduction to HTML](02-introduction-to-html/) | Text, Links, Lists, Semantic Structure, Media and Embeds, Forms, Pages |
 
 ## Who it is for
 
@@ -55,7 +99,8 @@ Leave these files as they are:
 - `test.js` in each practice
 - `lib/`
 - `package.json`, `package-lock.json`, and `jest.config.js`
-- `.github/workflows/tests.yml`
+- `.github/workflows/`
+- `scripts/ci-*`
 - `solutions/`
 
 `solutions/` holds one finished page per practice so the tests themselves can be checked. Try the exercise before you open a solution.
@@ -118,22 +163,17 @@ You can also open `index.html` with Live Server in VS Code. The tests do not nee
 
 ## GitHub Actions
 
-`.github/workflows/tests.yml` runs on every push and pull request. It checks out the repository, installs Node.js 24, installs dependencies, and runs the tests.
+`.github/workflows/exercise-tests.yml` runs when a presentation, a solution, a test, or the workflow changes. It reads the numbered folders. A new presentation or chapter shows up as its own check. A new exercise is picked up inside its chapter. You do not edit the workflow to add either one.
 
-Two jobs run:
+On the Actions page, open and close each presentation:
 
-| Job | What it checks |
+| Group | Topics |
 | --- | --- |
-| Practice exercises | Your `index.html` files inside the presentation folders |
-| Reference solutions | The pages in `solutions/` |
+| 01 · Setting up HTML | Text, Images and links, Tables and forms, Head and metadata, Personal profile |
+| 02 · Introduction to HTML | Text, Links, Lists, Semantic structure, Media and embeds, Forms, Pages |
 
-The practice job stays red until the exercises are solved. The reference job should stay green. That second job tells you the tests still describe the tasks correctly.
+Open a topic to see that chapter's exercises. Each exercise is checked twice: the practice `index.html`, then the matching page in `solutions/`.
 
-## Recommended order
+A topic runs again when a page, test, or shared test file in that chapter changes. An unchanged topic reuses its cached result.
 
-Finish presentation 01 before presentation 02. Inside a presentation, finish each chapter before the next one.
-
-| Presentation | Chapters |
-| --- | --- |
-| [01 — Setting Up Your HTML Development Environment](01-setting-up-html-development-environment/) | Text, Images and Links, Tables and Forms, Head and Metadata, Personal Profile |
-| [02 — Introduction to HTML](02-introduction-to-html/) | Text, Links, Lists, Semantic Structure, Media and Embeds, Forms, Pages |
+Practice results stay red until those pages are solved. Solution results should stay green. The progress report lists every exercise on one row, with both results side by side.
