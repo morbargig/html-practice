@@ -2,7 +2,7 @@
 # Emit the GitHub Actions matrix for presentation and exercise jobs.
 #
 # CI_DISCOVER_SCOPE:
-#   root          — one row per presentation folder.
+#   root          — one row per practices/lesson-NN folder.
 #   presentation  — one row per chapter folder. Requires CI_PRESENTATION_DIR.
 set -euo pipefail
 

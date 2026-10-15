@@ -4,28 +4,28 @@ on:
   push:
     branches: ["**"]
     paths:
-      - "01-setting-up-html-development-environment/**"
-      - "02-introduction-to-html/**"
+      - "labs/**"
+      - "practices/**"
       - "solutions/**"
+      - "tests/**"
       - "lib/**"
       - "scripts/**"
       - "package.json"
       - "package-lock.json"
       - "jest.config.js"
-      - ".github/workflows/exercise-tests.yml"
-      - ".github/workflows/exercise-presentation-suite.yml"
+      - ".github/workflows/**"
   pull_request:
     paths:
-      - "01-setting-up-html-development-environment/**"
-      - "02-introduction-to-html/**"
+      - "labs/**"
+      - "practices/**"
       - "solutions/**"
+      - "tests/**"
       - "lib/**"
       - "scripts/**"
       - "package.json"
       - "package-lock.json"
       - "jest.config.js"
-      - ".github/workflows/exercise-tests.yml"
-      - ".github/workflows/exercise-presentation-suite.yml"
+      - ".github/workflows/**"
   workflow_dispatch:
 
 permissions:

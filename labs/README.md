@@ -1,10 +1,20 @@
 # Interactive Colab Labs
 
-Practice HTML in the browser. Each lab is a notebook with exercises and a live preview. Lab 01 also includes automated checks.
+Part of [HTML Practice](../README.md). Practice HTML in the browser. Each lab is a notebook with exercises and a live preview. Lab 01 also includes automated checks.
 
-Finish Lab 01 before Lab 02. The numbered practice folders cover the same early subjects in [presentation 01](../01-setting-up-html-development-environment/) and [presentation 02](../02-introduction-to-html/). Lab 02 is HTML Lesson 3: Beyond the Basics.
+## Contents
 
-Students run each lab in Colab from their own fork.
+- [How to open a lab](#how-to-open-a-lab)
+- [Lesson 01 — HTML Fundamentals](#lesson-01--html-fundamentals)
+- [Lesson 03 — Advanced HTML & Native Interactivity](#lesson-03--advanced-html--native-interactivity)
+
+The course README links the lesson 01 notebook and sends the rest of the lab guide here.
+
+## How to open a lab
+
+Finish lesson 01 before lesson 03. The practice folders cover the same early subjects in [lesson 01](../practices/lesson-01/README.md) and [lesson 02](../practices/lesson-02/README.md). The second notebook is HTML Lesson 3: Beyond the Basics, so it lives in `labs/lesson-03/`. There is no lab for lesson 02.
+
+Students run each lab in Colab from their own fork. The lesson 01 badge on the [course README](../README.md) uses the same notebook as the first link below.
 
 1. Fork this repository on GitHub.
 2. In your fork, replace `morbargig` in each **Open in Colab** link with your own GitHub username.
@@ -13,19 +23,19 @@ Students run each lab in Colab from their own fork.
 
 A link in this repository looks like this:
 
-`https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/lab-01-html-fundamentals.ipynb`
+`https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/lesson-01/lab-01-html-fundamentals.ipynb`
 
 After the fork, the same link uses your username:
 
-`https://colab.research.google.com/github/YOUR_USERNAME/html-practice/blob/main/labs/lab-01-html-fundamentals.ipynb`
+`https://colab.research.google.com/github/YOUR_USERNAME/html-practice/blob/main/labs/lesson-01/lab-01-html-fundamentals.ipynb`
 
 Assignments and class materials are in [Google Classroom](https://classroom.google.com/w/ODkxNzk1OTQwMDY3/t/all).
 
-## Lab 01 — HTML Fundamentals
+## Lesson 01 — HTML Fundamentals
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/lab-01-html-fundamentals.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/lesson-01/lab-01-html-fundamentals.ipynb)
 
-Notebook: [lab-01-html-fundamentals.ipynb](lab-01-html-fundamentals.ipynb)
+Notebook: [lesson-01/lab-01-html-fundamentals.ipynb](lesson-01/lab-01-html-fundamentals.ipynb)
 
 Topics:
 
@@ -37,13 +47,13 @@ Topics:
 - Final About Me exercise
 - Automated HTML validation
 
-## Lab 02 — Advanced HTML & Native Interactivity
+## Lesson 03 — Advanced HTML & Native Interactivity
 
 **HTML Lesson 3: Beyond the Basics.** Build an interactive student portal with HTML only.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/lesson-03/Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
 
-Notebook: [Lab_02_Advanced_HTML_Native_Interactivity.ipynb](Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
+Notebook: [lesson-03/Lab_02_Advanced_HTML_Native_Interactivity.ipynb](lesson-03/Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
 
 The notebook saves each exercise as an HTML file and previews it in Colab.
 

@@ -1,12 +1,12 @@
 name: Presentation exercise suite
 
-# Called once per presentation folder. Chapters are discovered from that folder.
+# Called once per practices/lesson-NN folder. Chapters are discovered from that folder.
 # Each chapter is one collapsible check. Its exercises run inside that check.
 on:
   workflow_call:
     inputs:
       presentation_dir:
-        description: Presentation folder at the repository root
+        description: Lesson folder, such as practices/lesson-01
         required: true
         type: string
       presentation_job_title:

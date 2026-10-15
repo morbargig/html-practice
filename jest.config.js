@@ -2,6 +2,9 @@
 
 module.exports = {
   testEnvironment: 'node',
-  testMatch: ['<rootDir>/[0-9][0-9]-*/[0-9][0-9]-*/[0-9][0-9]-*/test.js'],
+  testMatch: [
+    '<rootDir>/practices/lesson-[0-9][0-9]/**/test.js',
+    '<rootDir>/tests/**/*.test.js',
+  ],
   verbose: true,
 };

@@ -2,7 +2,7 @@
 """Emit a GitHub Actions matrix for the HTML practice folders.
 
 CI_DISCOVER_SCOPE:
-  root            — one row per presentation folder.
+  root            — one row per practices/lesson-NN folder.
   presentation    — one row per chapter folder. Requires CI_PRESENTATION_DIR.
 
 Writes the matrix to $GITHUB_OUTPUT, or prints it when that variable is unset.
@@ -15,13 +15,13 @@ import os
 import re
 from pathlib import Path
 
-PRESENTATION_RE = re.compile(r"^(\d{2})-")
+LESSON_RE = re.compile(r"^lesson-(\d{2})$")
 CHAPTER_RE = re.compile(r"^(\d{2})-")
 EXERCISE_RE = re.compile(r"^(\d{2})-")
 
-PRESENTATION_TITLES = {
-    "01-setting-up-html-development-environment": "Setting up HTML",
-    "02-introduction-to-html": "Introduction to HTML",
+LESSON_TITLES = {
+    "lesson-01": "Setting up HTML",
+    "lesson-02": "Introduction to HTML",
 }
 
 def repo_root() -> Path:
@@ -39,8 +39,13 @@ def humanize(slug: str) -> str:
     return name[:1].upper() + name[1:]
 
 
-def presentation_title(folder: str) -> str:
-    return PRESENTATION_TITLES.get(folder, humanize(folder))
+def lesson_title(folder: str) -> str:
+    if folder in LESSON_TITLES:
+        return LESSON_TITLES[folder]
+    match = LESSON_RE.match(folder)
+    if match:
+        return f"Lesson {match.group(1)}"
+    return humanize(folder)
 
 
 def emit_matrix(include: list[dict[str, str]]) -> None:
@@ -55,40 +60,43 @@ def emit_matrix(include: list[dict[str, str]]) -> None:
         print(payload)
 
 
-def presentations(root: Path) -> list[Path]:
+def lessons(root: Path) -> list[Path]:
+    practices = root / "practices"
+    if not practices.is_dir():
+        return []
     found = []
-    for path in sorted(root.iterdir()):
-        if path.is_dir() and PRESENTATION_RE.match(path.name) and (path / "README.md").is_file():
+    for path in sorted(practices.iterdir()):
+        if path.is_dir() and LESSON_RE.match(path.name) and (path / "README.md").is_file():
             found.append(path)
     return found
 
 
 def scope_root(root: Path) -> list[dict[str, str]]:
     include: list[dict[str, str]] = []
-    for presentation in presentations(root):
-        number = PRESENTATION_RE.match(presentation.name).group(1)
-        title = presentation_title(presentation.name)
+    for lesson in lessons(root):
+        number = LESSON_RE.match(lesson.name).group(1)
+        title = lesson_title(lesson.name)
         include.append(
             {
                 "key": f"{number}__presentation",
-                "presentation_dir": presentation.name,
+                "presentation_dir": f"practices/{lesson.name}",
                 "job_title": f"{number} · {title}",
             }
         )
     if not include:
-        raise SystemExit("No presentation folders found.")
+        raise SystemExit("No lesson folders found in practices/.")
     return include
 
 
 def scope_presentation(root: Path, presentation_dir: str) -> list[dict[str, str]]:
     presentation = root / presentation_dir
     if not presentation.is_dir():
-        raise SystemExit(f"Presentation folder not found: {presentation_dir}")
-    number = PRESENTATION_RE.match(presentation_dir)
+        raise SystemExit(f"Lesson folder not found: {presentation_dir}")
+    number = LESSON_RE.match(presentation.name)
     if not number:
-        raise SystemExit(f"Presentation folder must start with NN-: {presentation_dir}")
+        raise SystemExit(f"Lesson folder must be named lesson-NN: {presentation_dir}")
     presentation_number = number.group(1)
-    presentation_label = presentation_title(presentation_dir)
+    presentation_label = lesson_title(presentation.name)
     include: list[dict[str, str]] = []
     for chapter in sorted(p for p in presentation.iterdir() if p.is_dir()):
         chapter_match = CHAPTER_RE.match(chapter.name)

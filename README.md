@@ -2,89 +2,105 @@
 
 Hands-on HTML exercises for students who are learning to structure a web page. Each practice is a small page, a short brief, and an automated test. The tests look at the document the browser would build, so a passing result means the page has the right elements, text, and attributes.
 
-Each numbered folder at the top is one course presentation. Inside it, chapters follow the subjects in that presentation.
+Lessons use the same numbering in `labs/` and `practices/`. A lesson folder is created only when that lesson has a lab or a practice set.
+
+## Contents
+
+| | Where to go |
+| --- | --- |
+| [Google Classroom](#google-classroom) | Class assignments |
+| [Labs](#labs) | [labs/README.md](labs/README.md) |
+| [Practices](#practices) | [practices/README.md](practices/README.md) |
+| [Lesson 01 practices](#practices) | [practices/lesson-01/README.md](practices/lesson-01/README.md) |
+| [Lesson 02 practices](#practices) | [practices/lesson-02/README.md](practices/lesson-02/README.md) |
+| [Solutions](#solutions) | [solutions/README.md](solutions/README.md) |
+| [Repository structure](#repository-structure) | Folders in this repo |
+| [Recommended order](#recommended-order) | What to finish first |
+| [Who it is for](#who-it-is-for) | |
+| [How a practice works](#how-a-practice-works) | |
+| [Install](#install) | |
+| [Run the tests](#run-the-tests) | |
+| [Work on one exercise](#work-on-one-exercise) | |
+| [GitHub Actions](#github-actions) | |
+| [Add a lesson](#add-a-lesson) | |
+| [Answer branch](#answer-branch) | |
+
+Each linked README continues the map. A lesson README links its chapters. A chapter README links its exercises. Layout rules for later edits are in [AGENTS.md](AGENTS.md).
 
 ## Google Classroom
 
 Assignments and class materials are in [Google Classroom](https://classroom.google.com/w/ODkxNzk1OTQwMDY3/t/all).
 
-## 🧪 Interactive Colab Labs
+## Labs
 
-Practice HTML in the browser with interactive exercises and a live preview. Lab 01 also includes automated checks. Students run each lab in Colab from their own fork.
+A lab is a notebook you open in Google Colab. It walks through HTML exercises and shows a live preview. Lab 01 also checks your HTML. Finish lesson 01 before lesson 03. Lesson 02 has practices and no Colab lab.
 
-1. Fork this repository on GitHub.
-2. In your fork, replace `morbargig` in each **Open in Colab** link with your own GitHub username.
-3. Open the lab from that updated link.
-4. In Colab, select **File → Save a copy in Drive**. Work only on your own copy.
+Fork this repository first, then open the notebook from your own copy. The fork steps, the lesson 03 notebook, and the preview notes are in [labs/README.md](labs/README.md).
 
-A link in this repository looks like this:
+### Lesson 01 — HTML Fundamentals
 
-`https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/lab-01-html-fundamentals.ipynb`
+Start with this notebook.
 
-After the fork, the same link uses your username:
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/lesson-01/lab-01-html-fundamentals.ipynb)
 
-`https://colab.research.google.com/github/YOUR_USERNAME/html-practice/blob/main/labs/lab-01-html-fundamentals.ipynb`
+Notebook: [labs/lesson-01/lab-01-html-fundamentals.ipynb](labs/lesson-01/lab-01-html-fundamentals.ipynb)
 
-Finish Lab 01 before Lab 02. Both labs are described in [labs/README.md](labs/README.md).
+Topics: document structure, headings, paragraphs, lists, links, images, semantic HTML, and a final About Me page.
 
-### Lab 01 — HTML Fundamentals
+## Practices
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/lab-01-html-fundamentals.ipynb)
+You edit `index.html` in an exercise folder, read that folder's `README.md`, and run its test. The lesson list is in [practices/README.md](practices/README.md).
 
-Notebook: [labs/lab-01-html-fundamentals.ipynb](labs/lab-01-html-fundamentals.ipynb)
+| Lesson | README |
+| --- | --- |
+| 01 — Setting Up Your HTML Development Environment | [practices/lesson-01/README.md](practices/lesson-01/README.md) |
+| 02 — Introduction to HTML | [practices/lesson-02/README.md](practices/lesson-02/README.md) |
 
-Topics:
+There is no practice set for lesson 03. That lesson is the Colab lab in [labs/README.md](labs/README.md).
 
-- HTML document structure
-- Headings and paragraphs
-- Lists
-- Links and images
-- Semantic HTML
-- Final About Me exercise
-- Automated HTML validation
+## Solutions
 
-### Lab 02 — Advanced HTML & Native Interactivity
+Reference pages live under `solutions/`, one finished page for each practice, so the tests can be checked on their own. Read [solutions/README.md](solutions/README.md) before you open one. Solve the practice first.
 
-**HTML Lesson 3: Beyond the Basics.** Build an interactive student portal with HTML only.
+## Repository structure
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
+```text
+labs/
+  README.md     Lab guide, fork steps, and both notebooks
+  lesson-01/    HTML Fundamentals notebook
+  lesson-03/    Lesson 3 notebook (native interactivity)
+practices/
+  README.md     Practice lesson list
+  lesson-01/    Setting Up Your HTML Development Environment
+  lesson-02/    Introduction to HTML
+solutions/
+  README.md     How the reference pages are laid out
+  practices/    Reference pages, one per practice exercise
+```
 
-Notebook: [labs/Lab_02_Advanced_HTML_Native_Interactivity.ipynb](labs/Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
-
-The notebook saves each exercise as an HTML file and previews it in Colab.
-
-- Setup: HTML preview helper
-- Exercise A — Attributes and advanced inputs
-- Exercise B — Fieldset, legend, and datalist
-- Exercise C — Native interactive HTML
-- Exercise D — Progress and meter
-- Final challenge — Interactive student portal
-- Self-check and reflection
-
-Topics: attributes, advanced inputs, fieldsets, datalist, details/summary, popovers, dialogs, progress, and meter.
-
-Colab's preview can restrict popovers and dialogs. Download the HTML file and open it in a current browser with VS Code and Live Server. Dialog buttons use `command` and `commandfor`, which need a current browser. The page uses HTML only.
+Lesson 02 has practices and no Colab lab. Lesson 03 has a Colab lab and no practice set. Those folders are omitted on purpose.
 
 ## Recommended order
 
-Finish presentation 01 before presentation 02. Inside a presentation, finish each chapter before the next one.
+Finish lesson 01 before lesson 02. Inside a lesson, finish each chapter before the next one. The lesson 03 lab follows those practices.
 
-| Presentation | Chapters |
+| Lesson | Next README |
 | --- | --- |
-| [01 — Setting Up Your HTML Development Environment](01-setting-up-html-development-environment/) | Text, Images and Links, Tables and Forms, Head and Metadata, Personal Profile |
-| [02 — Introduction to HTML](02-introduction-to-html/) | Text, Links, Lists, Semantic Structure, Media and Embeds, Forms, Pages |
+| [01 — Setting Up Your HTML Development Environment](practices/lesson-01/README.md) | Text, Images and Links, Tables and Forms, Head and Metadata, Personal Profile |
+| [02 — Introduction to HTML](practices/lesson-02/README.md) | Text, Links, Lists, Semantic Structure, Media and Embeds, Forms, Pages |
+| [03 — Advanced HTML and Native Interactivity](labs/README.md) | Colab lab only |
 
 ## Who it is for
 
-Students who are new to HTML and can open a folder in VS Code. You edit `index.html`. In [Link a Stylesheet](01-setting-up-html-development-environment/04-head-and-metadata/03-link-a-stylesheet/), you also connect a `style.css` file. You do not need a browser to run the tests.
+Students who are new to HTML and can open a folder in VS Code. You edit `index.html`. In [Link a Stylesheet](practices/lesson-01/04-head-and-metadata/03-link-a-stylesheet/README.md), you also connect a `style.css` file. You do not need a browser to run the tests.
 
 CSS properties such as color, fonts, the box model, and layout are not in this set. The third course presentation could not be opened (it asks for a Google sign-in), so those topics were left out rather than guessed.
 
 ## How a practice works
 
-1. Open the next presentation, starting at [01 — Setting Up Your HTML Development Environment](01-setting-up-html-development-environment/).
-2. Open the next chapter in that presentation, starting at [01 — Text](01-setting-up-html-development-environment/01-text/).
-3. Open the next exercise, starting at [Hello Heading](01-setting-up-html-development-environment/01-text/01-hello-heading/).
+1. Open the next lesson, starting at [01 — Setting Up Your HTML Development Environment](practices/lesson-01/README.md).
+2. Open the next chapter in that lesson, starting at [01 — Text](practices/lesson-01/01-text/README.md).
+3. Open the next exercise, starting at [Hello Heading](practices/lesson-01/01-text/01-hello-heading/README.md).
 4. Read that folder's `README.md`.
 5. Edit `index.html`. A comment marks the spot to write in.
 6. Run the test for that exercise.
@@ -92,7 +108,7 @@ CSS properties such as color, fonts, the box model, and layout are not in this s
 
 The early pages ask for one element. Later pages ask you to combine headings, regions, media, and forms you have already practiced.
 
-The files `index.html`, `moshe.html`, and `images/` in the repository root are separate from this exercise set. Do the work in the numbered presentation folders.
+The files `index.html`, `moshe.html`, and `images/` in the repository root are separate from this exercise set. Do the work in `practices/`. The root `index.html` stays where it is.
 
 Leave these files as they are:
 
@@ -136,7 +152,7 @@ npm test -- 02-images-and-links
 One presentation:
 
 ```bash
-npm test -- 01-setting-up-html-development-environment
+npm test -- practices/lesson-01
 ```
 
 Check the reference solutions:
@@ -150,7 +166,7 @@ A failing practice test means that page is not finished. The message names the m
 ## Work on one exercise
 
 ```bash
-cd 01-setting-up-html-development-environment/02-images-and-links/02-add-a-link
+cd practices/lesson-01/02-images-and-links/02-add-a-link
 ```
 
 Edit `index.html`, then from the repository root:
@@ -163,9 +179,9 @@ You can also open `index.html` with Live Server in VS Code. The tests do not nee
 
 ## GitHub Actions
 
-`.github/workflows/exercise-tests.yml` runs when a presentation, a solution, a test, or the workflow changes. It reads the numbered folders. A new presentation or chapter shows up as its own check. A new exercise is picked up inside its chapter. You do not edit the workflow to add either one.
+`.github/workflows/exercise-tests.yml` runs when a lesson, a lab, a solution, a test, or the workflow changes. It reads `practices/lesson-NN/`. A new lesson or chapter shows up as its own check. A new exercise is picked up inside its chapter. You do not edit the workflow to add either one.
 
-On the Actions page, open and close each presentation:
+On the Actions page, open and close each lesson:
 
 | Group | Topics |
 | --- | --- |
@@ -177,3 +193,17 @@ Open a topic to see that chapter's exercises. Each exercise is checked twice: th
 A topic runs again when a page, test, or shared test file in that chapter changes. An unchanged topic reuses its cached result.
 
 Practice results stay red until those pages are solved. Solution results should stay green. The progress report lists every exercise on one row, with both results side by side.
+
+## Add a lesson
+
+1. Create `practices/lesson-NN/README.md` and link it from [practices/README.md](practices/README.md) and from the contents table in this file.
+2. Add chapters as `NN-topic/NN-exercise/`, each with `index.html`, `README.md`, and `test.js`. Keep the exercise names that already exist when you are only moving a lesson. Link each new README from its parent README.
+3. Add the matching page at `solutions/practices/lesson-NN/.../index.html`.
+4. Put a Colab notebook in `labs/lesson-NN/` when that lesson has one, and add it to [labs/README.md](labs/README.md). The root README keeps the lesson 01 Colab link and points here for the rest.
+5. Add a short title to `LESSON_TITLES` in `scripts/ci_discover_matrix.py` when the Actions check should use a course name.
+
+The workflow already watches `labs/**`, `practices/**`, and `solutions/**`. A new `practices/lesson-NN` folder with a README and tested chapters is picked up on the next run.
+
+## Answer branch
+
+`student/answers` is the answer branch. On this branch the practice pages contain completed work, and `solutions/` still holds the separate reference page for each exercise. The lesson 03 notebook keeps its unfinished portal assignment. Do not copy a solution into a lab or a practice while reorganizing the folders.
