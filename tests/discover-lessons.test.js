@@ -40,7 +40,7 @@ test('each practice lesson is discovered with a matching solution page', () => {
 
 test('labs use the lesson number from the course, and empty lessons are absent', () => {
   expect(fs.existsSync(path.join(root, 'labs/lesson-01/lab-01-html-fundamentals.ipynb'))).toBe(true);
-  expect(fs.existsSync(path.join(root, 'labs/lesson-03/Lab_02_Advanced_HTML_Native_Interactivity.ipynb'))).toBe(true);
-  expect(fs.existsSync(path.join(root, 'labs/lesson-02'))).toBe(false);
+  expect(fs.existsSync(path.join(root, 'labs/lesson-02/Lab_02_Advanced_HTML_Native_Interactivity.ipynb'))).toBe(true);
+  expect(fs.existsSync(path.join(root, 'labs/lesson-03'))).toBe(false);
   expect(fs.existsSync(path.join(root, 'practices/lesson-03'))).toBe(false);
 });

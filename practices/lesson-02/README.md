@@ -2,7 +2,7 @@
 
 Part of [Practices](../README.md). Exercises for the second course presentation. They follow that deck: emphasis and heading order, meaningful links, lists, semantic regions, media, a fuller form, and an About Me page.
 
-Finish each chapter before the next one. This lesson has no Colab lab. The next lab is lesson 03 in [labs/README.md](../../labs/README.md).
+Finish each chapter before the next one. The Colab notebook for this lesson is Lab 02 in [labs/README.md](../../labs/README.md).
 
 | Chapter | Exercises |
 | --- | --- |

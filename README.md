@@ -33,9 +33,9 @@ Assignments and class materials are in [Google Classroom](https://classroom.goog
 
 ## Labs
 
-A lab is a notebook you open in Google Colab. It walks through HTML exercises and shows a live preview. Lab 01 also checks your HTML. Finish lesson 01 before lesson 03. Lesson 02 has practices and no Colab lab.
+A lab is a notebook you open in Google Colab. It walks through HTML exercises and shows a live preview. Lab 01 also checks your HTML. Finish lesson 01 before lesson 02.
 
-Fork this repository first, then open the notebook from your own copy. The fork steps, the lesson 03 notebook, and the preview notes are in [labs/README.md](labs/README.md).
+Fork this repository first, then open the notebook from your own copy. The fork steps, the lesson 02 notebook, and the preview notes are in [labs/README.md](labs/README.md).
 
 ### Lesson 01 — HTML Fundamentals
 
@@ -56,8 +56,6 @@ You edit `index.html` in an exercise folder, read that folder's `README.md`, and
 | 01 — Setting Up Your HTML Development Environment | [practices/lesson-01/README.md](practices/lesson-01/README.md) |
 | 02 — Introduction to HTML | [practices/lesson-02/README.md](practices/lesson-02/README.md) |
 
-There is no practice set for lesson 03. That lesson is the Colab lab in [labs/README.md](labs/README.md).
-
 ## Solutions
 
 Reference pages live under `solutions/`, one finished page for each practice, so the tests can be checked on their own. Read [solutions/README.md](solutions/README.md) before you open one. Solve the practice first.
@@ -68,7 +66,7 @@ Reference pages live under `solutions/`, one finished page for each practice, so
 labs/
   README.md     Lab guide, fork steps, and both notebooks
   lesson-01/    HTML Fundamentals notebook
-  lesson-03/    Lesson 3 notebook (native interactivity)
+  lesson-02/    Lab 02 notebook (native interactivity)
 practices/
   README.md     Practice lesson list
   lesson-01/    Setting Up Your HTML Development Environment
@@ -78,17 +76,14 @@ solutions/
   practices/    Reference pages, one per practice exercise
 ```
 
-Lesson 02 has practices and no Colab lab. Lesson 03 has a Colab lab and no practice set. Those folders are omitted on purpose.
-
 ## Recommended order
 
-Finish lesson 01 before lesson 02. Inside a lesson, finish each chapter before the next one. The lesson 03 lab follows those practices.
+Finish lesson 01 before lesson 02. Inside a lesson, finish each chapter before the next one. Lesson 02 also includes the Colab lab in [labs/README.md](labs/README.md).
 
 | Lesson | Next README |
 | --- | --- |
 | [01 — Setting Up Your HTML Development Environment](practices/lesson-01/README.md) | Text, Images and Links, Tables and Forms, Head and Metadata, Personal Profile |
-| [02 — Introduction to HTML](practices/lesson-02/README.md) | Text, Links, Lists, Semantic Structure, Media and Embeds, Forms, Pages |
-| [03 — Advanced HTML and Native Interactivity](labs/README.md) | Colab lab only |
+| [02 — Introduction to HTML](practices/lesson-02/README.md) | Text, Links, Lists, Semantic Structure, Media and Embeds, Forms, Pages, and the Colab lab |
 
 ## Who it is for
 
@@ -206,4 +201,4 @@ The workflow already watches `labs/**`, `practices/**`, and `solutions/**`. A ne
 
 ## Answer branch
 
-`student/answers` is the answer branch. On this branch the practice pages contain completed work, and `solutions/` still holds the separate reference page for each exercise. The lesson 03 notebook keeps its unfinished portal assignment. Do not copy a solution into a lab or a practice while reorganizing the folders.
+`student/answers` is the answer branch. On this branch the practice pages contain completed work, and `solutions/` still holds the separate reference page for each exercise. The lesson 02 notebook keeps its unfinished portal assignment. Do not copy a solution into a lab or a practice while reorganizing the folders.

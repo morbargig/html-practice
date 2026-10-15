@@ -6,13 +6,13 @@ Part of [HTML Practice](../README.md). Practice HTML in the browser. Each lab is
 
 - [How to open a lab](#how-to-open-a-lab)
 - [Lesson 01 — HTML Fundamentals](#lesson-01--html-fundamentals)
-- [Lesson 03 — Advanced HTML & Native Interactivity](#lesson-03--advanced-html--native-interactivity)
+- [Lesson 02 — Advanced HTML & Native Interactivity](#lesson-02--advanced-html--native-interactivity)
 
 The course README links the lesson 01 notebook and sends the rest of the lab guide here.
 
 ## How to open a lab
 
-Finish lesson 01 before lesson 03. The practice folders cover the same early subjects in [lesson 01](../practices/lesson-01/README.md) and [lesson 02](../practices/lesson-02/README.md). The second notebook is HTML Lesson 3: Beyond the Basics, so it lives in `labs/lesson-03/`. There is no lab for lesson 02.
+Finish lesson 01 before lesson 02. The practice folders cover the same early subjects in [lesson 01](../practices/lesson-01/README.md) and [lesson 02](../practices/lesson-02/README.md). Lab 02 is HTML Lesson 2: Beyond the Basics, and it lives in `labs/lesson-02/`.
 
 Students run each lab in Colab from their own fork. The lesson 01 badge on the [course README](../README.md) uses the same notebook as the first link below.
 
@@ -47,13 +47,13 @@ Topics:
 - Final About Me exercise
 - Automated HTML validation
 
-## Lesson 03 — Advanced HTML & Native Interactivity
+## Lesson 02 — Advanced HTML & Native Interactivity
 
-**HTML Lesson 3: Beyond the Basics.** Build an interactive student portal with HTML only.
+**HTML Lesson 2: Beyond the Basics.** Build an interactive student portal with HTML only.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/lesson-03/Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/lesson-02/Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
 
-Notebook: [lesson-03/Lab_02_Advanced_HTML_Native_Interactivity.ipynb](lesson-03/Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
+Notebook: [lesson-02/Lab_02_Advanced_HTML_Native_Interactivity.ipynb](lesson-02/Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
 
 The notebook saves each exercise as an HTML file and previews it in Colab.
 
