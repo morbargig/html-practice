@@ -10,7 +10,7 @@ Assignments and class materials are in [Google Classroom](https://classroom.goog
 
 ## 🧪 Interactive Colab Labs
 
-Practice HTML directly in your browser with interactive exercises, live previews, and automated tests. Students run each lab in Colab from their own fork.
+Practice HTML in the browser with interactive exercises and a live preview. Lab 01 also includes automated checks. Students run each lab in Colab from their own fork.
 
 1. Fork this repository on GitHub.
 2. In your fork, replace `morbargig` in each **Open in Colab** link with your own GitHub username.
@@ -43,22 +43,27 @@ Topics:
 - Final About Me exercise
 - Automated HTML validation
 
-### Lab 02 — Advanced HTML and Native Interactivity
+### Lab 02 — Advanced HTML & Native Interactivity
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/lab-02-native-interactivity.ipynb)
+**HTML Lesson 3: Beyond the Basics.** Build an interactive student portal with HTML only.
 
-Notebook: [labs/lab-02-native-interactivity.ipynb](labs/lab-02-native-interactivity.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
 
-Topics:
+Notebook: [labs/Lab_02_Advanced_HTML_Native_Interactivity.ipynb](labs/Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
 
-- Attributes and advanced inputs
-- Fieldsets, legends, and datalists
-- Details, popovers, and dialogs
-- Progress and meter
-- Final interactive student portal
-- Automated HTML checks
+The notebook saves each exercise as an HTML file and previews it in Colab.
 
-Popovers and dialogs need a current version of Chrome. Colab checks the markup. Download `student-portal.html` from the final exercise and open it in the browser to try those controls. This lab uses HTML only.
+- Setup: HTML preview helper
+- Exercise A — Attributes and advanced inputs
+- Exercise B — Fieldset, legend, and datalist
+- Exercise C — Native interactive HTML
+- Exercise D — Progress and meter
+- Final challenge — Interactive student portal
+- Self-check and reflection
+
+Topics: attributes, advanced inputs, fieldsets, datalist, details/summary, popovers, dialogs, progress, and meter.
+
+Colab's preview can restrict popovers and dialogs. Download the HTML file and open it in a current browser with VS Code and Live Server. Dialog buttons use `command` and `commandfor`, which need a current browser. The page uses HTML only.
 
 ## Recommended order
 
