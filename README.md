@@ -10,7 +10,22 @@ Assignments and class materials are in [Google Classroom](https://classroom.goog
 
 ## 🧪 Interactive Colab Labs
 
-Practice HTML directly in your browser with interactive exercises, live previews, and automated tests.
+Practice HTML directly in your browser with interactive exercises, live previews, and automated tests. Students run each lab in Colab from their own fork.
+
+1. Fork this repository on GitHub.
+2. In your fork, replace `morbargig` in each **Open in Colab** link with your own GitHub username.
+3. Open the lab from that updated link.
+4. In Colab, select **File → Save a copy in Drive**. Work only on your own copy.
+
+A link in this repository looks like this:
+
+`https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/lab-01-html-fundamentals.ipynb`
+
+After the fork, the same link uses your username:
+
+`https://colab.research.google.com/github/YOUR_USERNAME/html-practice/blob/main/labs/lab-01-html-fundamentals.ipynb`
+
+Finish Lab 01 before Lab 02. Both labs are described in [labs/README.md](labs/README.md).
 
 ### Lab 01 — HTML Fundamentals
 
@@ -28,9 +43,22 @@ Topics:
 - Final About Me exercise
 - Automated HTML validation
 
-Open the lab in Colab and select **File → Save a copy in Drive**. Work only on your own copy.
+### Lab 02 — Advanced HTML and Native Interactivity
 
-The same lab is described in [labs/README.md](labs/README.md).
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/lab-02-native-interactivity.ipynb)
+
+Notebook: [labs/lab-02-native-interactivity.ipynb](labs/lab-02-native-interactivity.ipynb)
+
+Topics:
+
+- Attributes and advanced inputs
+- Fieldsets, legends, and datalists
+- Details, popovers, and dialogs
+- Progress and meter
+- Final interactive student portal
+- Automated HTML checks
+
+Popovers and dialogs need a current version of Chrome. Colab checks the markup. Download `student-portal.html` from the final exercise and open it in the browser to try those controls. This lab uses HTML only.
 
 ## Recommended order
 
