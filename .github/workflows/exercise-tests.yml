@@ -121,6 +121,6 @@ jobs:
       - name: Fail unless every practice passed
         run: |
           if [[ "${{ needs.presentation_suite.result }}" != "success" ]]; then
-            echo "The run is incomplete. A topic fails when a page is still the starter or an answer is wrong (result=${{ needs.presentation_suite.result }})."
+            echo "The run is incomplete. A topic fails when none of its pages have been edited, or an edited page is wrong (result=${{ needs.presentation_suite.result }})."
             exit 1
           fi

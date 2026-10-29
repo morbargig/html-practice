@@ -134,7 +134,7 @@ You can also open `index.html` with Live Server in VS Code. The tests do not nee
 4. Commit that page and push it to your fork.
 5. Open the push on the **Actions** tab. **Progress report** lists every practice and the result for its `index.html`.
 
-Each push tests every practice `index.html`. A page you have not edited is **not started** and fails that topic. A page you edited is tested, and a wrong answer fails that topic. The check is green only when every practice page passes. Open **Progress report** to see which pages passed, which failed, and which are still not started.
+Each push tests every practice `index.html`. A page you have not edited is **not started**. Once a topic has a page you edited, that topic stays green when those pages pass, and the pages you have not edited stay not started. A wrong answer fails the topic. A topic you have not started stays red. The workflow stays red until every practice page passes. Open **Progress report** to see which pages passed, which failed, and which are still not started.
 
 ## GitHub Actions
 
