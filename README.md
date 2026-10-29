@@ -71,7 +71,8 @@ Leave these files as they are:
 - `test.js` in each practice
 - `lib/`
 - `package.json`, `package-lock.json`, and `jest.config.js`
-- `.github/workflows/tests.yml`
+- `.github/workflows/`
+- `scripts/`
 
 Finished pages are not in this branch. They are checked on `student/answers`.
 
@@ -125,15 +126,26 @@ npm test -- 02-add-a-link
 
 You can also open `index.html` with Live Server in VS Code. The tests do not need that preview.
 
+## Fork this repository
+
+1. Fork [html-practice](https://github.com/morbargig/html-practice). The fork starts from `main`.
+2. Open the **Actions** tab on your fork. Enable workflows if GitHub says they are disabled.
+3. Edit `index.html` in a practice folder. Leave `test.js` as it is.
+4. Commit that page and push it to your fork.
+5. Open the push on the **Actions** tab. **Progress report** lists every practice and the result for its `index.html`.
+
+Answering one practice rechecks that page on your fork. Pages you have not finished stay failed. A topic turns green when every practice in that topic passes.
+
 ## GitHub Actions
 
-`.github/workflows/tests.yml` runs on every push and pull request. It checks out the repository, installs Node.js 24, installs dependencies, and runs the practice tests.
+`.github/workflows/exercise-tests.yml` runs when a practice page, a lab, a test, or the workflow changes. It reads `practices/lesson-NN/` and tests each topic's `index.html` files. `main` has no `solutions/` pages, so your fork is graded from the practice page you edit.
 
-| Job | What it checks |
+| Group | Topics |
 | --- | --- |
-| Practice exercises | Your `index.html` files inside `practices/lesson-01/` and `practices/lesson-02/` |
+| 01 · Setting up HTML | 01 · Text, 02 · Images and links, 03 · Tables and forms, 04 · Head and metadata, 05 · Personal profile |
+| 02 · Introduction to HTML | 01 · Text, 02 · Links, 03 · Lists, 04 · Semantic structure, 05 · Media and embeds, 06 · Forms, 07 · Pages |
 
-The practice job stays red until the exercises are solved. The answer checks run on the `student/answers` branch.
+A topic runs again when a page or test in that topic changes. An unchanged topic reuses its cached result.
 
 ## Recommended order
 

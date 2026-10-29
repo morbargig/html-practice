@@ -1,0 +1,110 @@
+name: Presentation exercise suite
+
+# Called once per practices/lesson-NN folder. Chapters are discovered from that folder.
+# Each chapter is one collapsible check. Its exercises run inside that check.
+on:
+  workflow_call:
+    inputs:
+      presentation_dir:
+        description: Lesson folder, such as practices/lesson-01
+        required: true
+        type: string
+      presentation_job_title:
+        description: Title shown for this presentation
+        required: true
+        type: string
+
+run-name: ${{ inputs.presentation_job_title }}
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  discover_chapters:
+    name: Discover topics
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.set_matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Discover topics in this presentation
+        id: set_matrix
+        env:
+          CI_DISCOVER_SCOPE: presentation
+          CI_PRESENTATION_DIR: ${{ inputs.presentation_dir }}
+        run: bash scripts/ci-discover-matrix.sh
+
+  test_chapters:
+    name: ${{ matrix.job_title }}
+    needs: discover_chapters
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.discover_chapters.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Download dependency bundle
+        uses: actions/download-artifact@v8
+        with:
+          name: ci-node-modules
+          path: downloaded/
+
+      - name: Extract dependencies
+        run: tar -xzf downloaded/node_modules.tgz
+
+      - name: Restore cached topic result
+        id: topic_cache
+        uses: actions/cache@v5
+        with:
+          path: reports/chapter.ndjson
+          key: html-topic-${{ matrix.key }}-${{ hashFiles(format('{0}/**', matrix.chapter_path), format('{0}/**', matrix.solution_path), 'lib/**', 'jest.config.js', 'package-lock.json') }}
+
+      - name: Run topic
+        id: topic
+        if: steps.topic_cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        env:
+          CI_RESULT_NDJSON: ${{ github.workspace }}/reports/chapter.ndjson
+          CI_CHAPTER_PATH: ${{ matrix.chapter_path }}
+          CI_PRESENTATION_NUMBER: ${{ matrix.presentation_number }}
+          CI_PRESENTATION_TITLE: ${{ matrix.presentation_title }}
+          CI_CHAPTER_NUMBER: ${{ matrix.chapter_number }}
+          CI_CHAPTER_TITLE: ${{ matrix.chapter_title }}
+          PROGRESS_STUDENT_ID: ${{ github.actor }}
+        run: node scripts/ci-run-chapter.js
+
+      - name: Topic (cached)
+        id: topic_cached
+        if: steps.topic_cache.outputs.cache-hit == 'true'
+        continue-on-error: true
+        env:
+          CI_FROM_CACHE: "1"
+          CI_RESULT_NDJSON: ${{ github.workspace }}/reports/chapter.ndjson
+          CI_PRESENTATION_NUMBER: ${{ matrix.presentation_number }}
+          CI_CHAPTER_TITLE: ${{ matrix.chapter_title }}
+        run: node scripts/ci-run-chapter.js
+
+      - name: Stage result shard
+        if: always()
+        run: |
+          mkdir -p reports/ci-shards
+          cp reports/chapter.ndjson "reports/ci-shards/${{ matrix.key }}.ndjson"
+
+      - name: Upload result shard
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: matrix-ndjson-${{ matrix.key }}
+          path: reports/ci-shards/${{ matrix.key }}.ndjson
+          if-no-files-found: ignore
+
+      - name: Propagate test failure
+        if: steps.topic.outcome == 'failure' || steps.topic_cached.outcome == 'failure'
+        run: exit 1

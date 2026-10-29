@@ -1,0 +1,126 @@
+name: Exercise tests
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "labs/**"
+      - "practices/**"
+      - "solutions/**"
+      - "tests/**"
+      - "lib/**"
+      - "scripts/**"
+      - "package.json"
+      - "package-lock.json"
+      - "jest.config.js"
+      - ".github/workflows/**"
+  pull_request:
+    paths:
+      - "labs/**"
+      - "practices/**"
+      - "solutions/**"
+      - "tests/**"
+      - "lib/**"
+      - "scripts/**"
+      - "package.json"
+      - "package-lock.json"
+      - "jest.config.js"
+      - ".github/workflows/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  discover:
+    name: Discover folders
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.set_matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Discover presentations
+        id: set_matrix
+        env:
+          CI_DISCOVER_SCOPE: root
+        run: bash scripts/ci-discover-matrix.sh
+
+  prepare:
+    name: Install dependencies
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Pack node_modules
+        run: tar -czf node_modules.tgz node_modules
+
+      - name: Upload dependency bundle
+        uses: actions/upload-artifact@v7
+        with:
+          name: ci-node-modules
+          path: node_modules.tgz
+          retention-days: 1
+
+  presentation_suite:
+    name: ${{ matrix.job_title }}
+    needs: [discover, prepare]
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.discover.outputs.matrix) }}
+    uses: ./.github/workflows/exercise-presentation-suite.yml
+    with:
+      presentation_dir: ${{ matrix.presentation_dir }}
+      presentation_job_title: ${{ matrix.job_title }}
+
+  aggregate_reports:
+    name: Progress report
+    needs: presentation_suite
+    if: always()
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v8
+        id: download_ndjson_shards
+        continue-on-error: true
+        with:
+          pattern: matrix-ndjson-*
+          merge-multiple: true
+          path: artifacts/
+
+      - name: Build the progress report
+        if: always()
+        run: python3 scripts/ci_progress_report.py artifacts reports
+
+      - name: Upload progress report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: progress-reports
+          path: |
+            reports/progress-report.md
+            reports/progress.json
+          if-no-files-found: ignore
+
+  enforce_success:
+    name: Workflow gate
+    needs: presentation_suite
+    if: always()
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Fail if any exercise failed
+        run: |
+          if [[ "${{ needs.presentation_suite.result }}" != "success" ]]; then
+            echo "One or more exercise jobs failed (result=${{ needs.presentation_suite.result }})."
+            exit 1
+          fi
