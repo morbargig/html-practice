@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="A bird notebook that demonstrates a sightings table, links to two other pages, a sighting form, and several ways to load an image.">
+  <title>Playground — Bird notebook</title>
+  <link rel="icon" href="images/bird.jpg">
+</head>
+
+<body>
+  <header>
+    <p>Playground</p>
+    <h1>Bird notebook</h1>
+    <p>
+      This folder is a scratch pad for trying HTML. It is not a graded practice and it has no test.
+      Two other pages sit next to this one: <a href="guide.html">guide.html</a> explains the folder, and <a href="gallery.html">gallery.html</a> shows the bird picture on its own.
+    </p>
+    <nav aria-label="Playground pages">
+      <ul>
+        <li><a href="index.html" aria-current="page">Notebook</a></li>
+        <li><a href="guide.html">Guide</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <nav aria-label="On this page">
+    <h2>On this page</h2>
+    <ul>
+      <li><a href="#table">Sightings table</a> — rows, columns, and a caption</li>
+      <li><a href="#links">Links</a> — the guide in this tab, the gallery in a new tab</li>
+      <li><a href="#forms">Sighting form</a> — labeled fields and input types</li>
+      <li><a href="#images">Bird pictures</a> — relative paths, a web address, an embedded image, and a path that fails</li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="table">
+      <h2>Sightings table</h2>
+      <p>
+        A table is for data that lines up in rows and columns.
+        <code>thead</code> holds the column names. <code>tbody</code> holds the records.
+        Every row has the same number of cells, so the columns stay aligned.
+        <code>scope</code> tells a screen reader whether a heading names a column or a row.
+      </p>
+      <table>
+        <caption>Birds noted in the yard this week</caption>
+        <thead>
+          <tr>
+            <th scope="col">Bird</th>
+            <th scope="col">Count</th>
+            <th scope="col">Where</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Robin</th>
+            <td>3</td>
+            <td>Garden hedge</td>
+          </tr>
+          <tr>
+            <th scope="row">Heron</th>
+            <td>1</td>
+            <td>Pond edge</td>
+          </tr>
+          <tr>
+            <th scope="row">Swallow</th>
+            <td>6</td>
+            <td>Above the roof</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="links">
+      <h2>Links</h2>
+      <p>
+        These addresses have no folder names, so the browser looks in this same folder.
+        The guide link replaces this page. The gallery link adds <code>target="_blank"</code>, so the notebook stays open and the gallery opens in a new tab.
+        <code>rel="noopener"</code> keeps that new tab from controlling this one.
+      </p>
+      <p><a href="guide.html">Open the guide in this tab</a></p>
+      <p><a href="gallery.html" target="_blank" rel="noopener">Open the Gallery in a new tab</a></p>
+    </section>
+
+    <section id="forms">
+      <h2>Sighting form</h2>
+      <p>
+        Use this form to record a bird you saw. Each control has a <code>label</code>, and the label's <code>for</code> matches the
+        control's <code>id</code>.
+        Clicking the label focuses the matching field.
+        <code>required</code> means the browser will not submit until that field is filled in.
+        <code>action="/submit"</code> and <code>method="post"</code> say where the data would be sent.
+        There is no server at <code>/submit</code> in this repository, so a successful submit still ends in an error
+        page.
+      </p>
+      <form action="/submit" method="post">
+        <fieldset>
+          <legend>The sighting</legend>
+
+          <p>
+            <label for="bird-name">Bird name</label><br>
+            <input id="bird-name" name="bird-name" type="text" required>
+          </p>
+
+          <p>
+            <label for="notes">What you noticed</label><br>
+            <textarea id="notes" name="notes" rows="4" required></textarea>
+          </p>
+        </fieldset>
+
+        <fieldset>
+          <legend>How to reach you</legend>
+
+          <p>
+            <label for="phone">Phone number</label><br>
+            <input id="phone" name="phone" type="tel" pattern="[0-9]{10}" title="10 digits, with no spaces"
+              autocomplete="tel">
+            <br>
+            <small>10 digits, with no spaces. <code>type="tel"</code> asks the browser for a telephone keypad.</small>
+          </p>
+
+          <p>
+            <label for="email">Email address</label><br>
+            <input id="email" name="email" type="email" required autocomplete="email">
+            <br>
+            <small><code>type="email"</code> checks that the value looks like an email address.</small>
+          </p>
+        </fieldset>
+
+        <fieldset>
+          <legend>When and how many</legend>
+
+          <p>
+            <label for="count">Number of birds</label><br>
+            <input id="count" name="count" type="number" min="1" max="100" inputmode="numeric">
+            <br>
+            <small><code>type="number"</code> with <code>min</code> and <code>max</code> limits the count to
+              1–100.</small>
+          </p>
+
+          <p>
+            <label for="seen-on">Date seen</label><br>
+            <input id="seen-on" name="seen-on" type="date" min="2020-01-01" max="2026-10-15">
+            <br>
+            <small><code>type="date"</code> opens a date picker. The date must fall between 1 January 2020 and 15
+              October 2026.</small>
+          </p>
+        </fieldset>
+
+        <p><button type="submit">Save sighting</button></p>
+      </form>
+    </section>
+
+    <section id="images">
+      <h2>Bird pictures</h2>
+      <p>
+        Every image needs <code>alt</code> text that describes it when the picture cannot be seen.
+        The pictures below show different <code>src</code> values. The first four should appear. The last one should
+        not, because a path that starts with <code>/</code> starts at the website root, and this file lives in
+        <code>playground/</code>.
+      </p>
+
+      <figure>
+        <img src="images/bird.jpg" alt="Colorful bird drawn with a smooth gradient" width="200">
+        <figcaption>
+          <code>images/bird.jpg</code> — a relative path. The browser starts in this folder and opens
+          <code>playground/images/bird.jpg</code>.
+        </figcaption>
+      </figure>
+
+      <figure>
+        <img src="./images/bird.jpg" alt="The same colorful bird, loaded with an explicit relative path" width="200">
+        <figcaption>
+          <code>./images/bird.jpg</code> — the same file. <code>./</code> means "this folder", so this path and the one
+          above are equivalent.
+        </figcaption>
+      </figure>
+
+      <figure>
+        <img
+          src="https://img.freepik.com/free-vector/bird-colorful-gradient-design-vector_343694-2506.jpg?semt=ais_hybrid&amp;w=740&amp;q=80"
+          alt="Colorful bird logo loaded from Freepik" width="200">
+        <figcaption>
+          A full <code>https://</code> address loads the picture from another site. It needs a network connection, and
+          it can break if that site removes the file.
+        </figcaption>
+      </figure>
+
+      <figure>
+        <img
+          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMjAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzIwIDIwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InNreSIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjN2ZkM2ZmIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iNTAlIiBzdG9wLWNvbG9yPSIjYzliNmZmIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZmYzJkZiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYm9keSIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmZlMDhhIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iNDglIiBzdG9wLWNvbG9yPSIjZmY3YTU5Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2M3N2RmZiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0id2luZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjN2FmMGUwIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzNhODZmZiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjMyMCIgaGVpZ2h0PSIyMDAiIHJ4PSIyOCIgZmlsbD0idXJsKCNza3kpIi8+CiAgPGNpcmNsZSBjeD0iMjU4IiBjeT0iNDAiIHI9IjE2IiBmaWxsPSIjZmZmM2IwIi8+CiAgPGNpcmNsZSBjeD0iNDYiIGN5PSIzNCIgcj0iNSIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC43NSIvPgogIDxjaXJjbGUgY3g9IjcyIiBjeT0iMjYiIHI9IjMiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuODUiLz4KICA8Y2lyY2xlIGN4PSIyODYiIGN5PSI3MiIgcj0iMy41IiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjciLz4KICA8cGF0aCBkPSJNMTE4IDEyNiBDODIgMTA4IDUyIDEzOCAzNiAxNTQgQzc0IDE0NCA5OCAxNTAgMTIyIDE0MCBaIiBmaWxsPSIjZmY2YjlhIi8+CiAgPGVsbGlwc2UgY3g9IjE3MCIgY3k9IjExOCIgcng9IjY0IiByeT0iMzYiIGZpbGw9InVybCgjYm9keSkiLz4KICA8cGF0aCBkPSJNMTU2IDExMiBDMTEyIDc0IDU4IDk2IDQyIDEzMiBDOTAgMTE0IDEyNiAxMjYgMTU2IDE0MCBaIiBmaWxsPSJ1cmwoI3dpbmcpIi8+CiAgPGNpcmNsZSBjeD0iMjE0IiBjeT0iOTYiIHI9IjI2IiBmaWxsPSIjZmZlMDhhIi8+CiAgPHBvbHlnb24gcG9pbnRzPSIyMzYsOTggMjcwLDg0IDI3MCwxMTIiIGZpbGw9IiNmZjhjNDIiLz4KICA8Y2lyY2xlIGN4PSIyMjIiIGN5PSI5MCIgcj0iNS41IiBmaWxsPSIjMWQzNTU3Ii8+CiAgPGNpcmNsZSBjeD0iMjI0IiBjeT0iODgiIHI9IjEuOCIgZmlsbD0iI2ZmZmZmZiIvPgogIDxwYXRoIGQ9Ik0xNTggMTUwIEwxNDggMTcwIE0xNTggMTUwIEwxNjYgMTcwIiBzdHJva2U9IiNjNDVjMjYiIHN0cm9rZS13aWR0aD0iMy41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIGZpbGw9Im5vbmUiLz4KPC9zdmc+"
+          alt="Colorful bird illustration stored inside the HTML" width="200">
+        <figcaption>
+          A <code>data:</code> URL stores the image inside the HTML itself. This bird is base64-encoded, so the page
+          does not need a separate file for it.
+        </figcaption>
+      </figure>
+
+      <figure>
+        <img src="/images/bird.jpg" alt="Colorful bird that does not load, because the path starts at the website root"
+          width="200">
+        <figcaption>
+          <code>/images/bird.jpg</code> starts at the website root, not in <code>playground/</code>. The bird file is
+          not there, so this image stays broken. A path such as <code>/Users/you/Desktop/.../bird.jpg</code> is worse:
+          it only exists on one computer.
+        </figcaption>
+      </figure>
+    </section>
+  </main>
+
+  <footer>
+    <p>Playground pages. Graded exercises live in <code>practices/</code>.</p>
+  </footer>
+</body>
+
+</html>

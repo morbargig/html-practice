@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The playground gallery, with the bird picture and a note on its file path.">
+  <title>Playground — Gallery</title>
+</head>
+<body>
+  <header>
+    <p>Playground</p>
+    <h1>Bird gallery</h1>
+    <p>
+      This is the second page linked from the notebook.
+      It shows one picture and explains the path that loads it.
+    </p>
+    <nav aria-label="Playground pages">
+      <ul>
+        <li><a href="index.html">Notebook</a></li>
+        <li><a href="guide.html">Guide</a></li>
+        <li><a href="gallery.html" aria-current="page">Gallery</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>The picture in this folder</h2>
+    <figure>
+      <img src="images/bird.jpg" alt="Colorful bird drawn with a smooth gradient" width="240">
+      <figcaption>
+        <code>images/bird.jpg</code> starts in this folder, then opens the <code>images</code> folder.
+        The same file is used on the notebook, where other <code>src</code> values are compared with it.
+      </figcaption>
+    </figure>
+
+    <h2>Why this page is separate</h2>
+    <p>
+      The notebook link that opens the gallery has <code>target="_blank"</code>.
+      If the notebook is still open in another tab, that is the link you followed.
+      You can also open this page directly. The address bar should end in <code>playground/gallery.html</code>.
+    </p>
+    <ul>
+      <li>File name: <code>gallery.html</code></li>
+      <li>Picture file: <code>images/bird.jpg</code></li>
+      <li>Related page: <a href="guide.html">Guide to this folder</a></li>
+    </ul>
+  </main>
+
+  <footer>
+    <p><a href="index.html">Back to the bird notebook</a></p>
+  </footer>
+</body>
+</html>

@@ -26,3 +26,6 @@ npm test -- 01-add-an-image
 ```
 
 `npm test` checks every practice.
+
+## 👀 Preview
+Open `index.html` with Live Server and review the page in the browser. Install steps are in [extensions/README.md](../../../../extensions/README.md).

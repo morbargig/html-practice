@@ -27,3 +27,6 @@ npm test -- 02-simple-form
 ```
 
 `npm test` checks every practice.
+
+## 👀 Preview
+Open `index.html` with Live Server and review the page in the browser. Install steps are in [extensions/README.md](../../../../extensions/README.md).
