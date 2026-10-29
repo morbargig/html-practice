@@ -4,7 +4,8 @@
   "private": true,
   "description": "Progressive HTML exercises with automated DOM tests.",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:solutions": "node scripts/run-solutions.js"
   },
   "engines": {
     "node": ">=20"

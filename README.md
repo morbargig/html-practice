@@ -13,6 +13,7 @@ Lessons use the same numbering in `labs/` and `practices/`. A lesson folder is c
 | [Practices](#practices) | [practices/README.md](practices/README.md) |
 | [Lesson 01 practices](#practices) | [practices/lesson-01/README.md](practices/lesson-01/README.md) |
 | [Lesson 02 practices](#practices) | [practices/lesson-02/README.md](practices/lesson-02/README.md) |
+| [Solutions](#solutions) | [solutions/README.md](solutions/README.md) |
 | [Playground](#playground) | [playground/README.md](playground/README.md) |
 | [Extensions](#extensions) | [extensions/README.md](extensions/README.md) |
 | [Repository structure](#repository-structure) | Folders in this repo |
@@ -24,6 +25,7 @@ Lessons use the same numbering in `labs/` and `practices/`. A lesson folder is c
 | [Work on one exercise](#work-on-one-exercise) | |
 | [GitHub Actions](#github-actions) | |
 | [Add a lesson](#add-a-lesson) | |
+| [Answer branch](#answer-branch) | |
 
 Each linked README continues the map. A lesson README links its chapters. A chapter README links its exercises. Layout rules for later edits are in [AGENTS.md](AGENTS.md).
 
@@ -56,6 +58,10 @@ You edit `index.html` in an exercise folder, read that folder's `README.md`, and
 | 01 — Setting Up Your HTML Development Environment | [practices/lesson-01/README.md](practices/lesson-01/README.md) |
 | 02 — Introduction to HTML | [practices/lesson-02/README.md](practices/lesson-02/README.md) |
 
+## Solutions
+
+Reference pages live under `solutions/`, one finished page for each practice, so the tests can be checked on their own. Read [solutions/README.md](solutions/README.md) before you open one. Solve the practice first.
+
 ## Playground
 
 [playground/README.md](playground/README.md) holds the sample pages. They are separate from the practices.
@@ -70,11 +76,14 @@ You edit `index.html` in an exercise folder, read that folder's `README.md`, and
 labs/
   README.md     Lab guide, fork steps, and both notebooks
   lesson-01/    HTML Fundamentals notebook
-  lesson-02/    Lab 02 notebook
+  lesson-02/    Lab 02 notebook (native interactivity)
 practices/
   README.md     Practice lesson list
   lesson-01/    Setting Up Your HTML Development Environment
   lesson-02/    Introduction to HTML
+solutions/
+  README.md     How the reference pages are laid out
+  practices/    Reference pages, one per practice exercise
 playground/
   README.md     What the sample pages demonstrate
   index.html    Bird notebook: table, links, form, and images
@@ -121,9 +130,10 @@ Leave these files as they are:
 - `lib/`
 - `package.json`, `package-lock.json`, and `jest.config.js`
 - `.github/workflows/`
-- `scripts/`
+- `scripts/ci-*`
+- `solutions/`
 
-Finished pages are not in this branch. They stay on `student/answers`.
+`solutions/` holds one finished page per practice so the tests themselves can be checked. Try the exercise before you open a solution.
 
 ## Install
 
@@ -161,6 +171,12 @@ One presentation:
 npm test -- practices/lesson-01
 ```
 
+Check the reference solutions:
+
+```bash
+npm run test:solutions
+```
+
 A failing practice test means that page is not finished. The message names the missing element or the text it expected, for example: `Expected the <h1> text to be "Hello World".`
 
 ## Work on one exercise
@@ -179,25 +195,31 @@ Open that same `index.html` with Live Server to review the page. Install steps a
 
 ## GitHub Actions
 
-`.github/workflows/exercise-tests.yml` runs when a practice page, a lab, a test, or the workflow changes. It reads `practices/lesson-NN/` and tests each topic's `index.html` files. `main` has no `solutions/` pages, so your fork is graded from the practice page you edit.
+`.github/workflows/exercise-tests.yml` runs when a lesson, a lab, a solution, a test, or the workflow changes. It reads `practices/lesson-NN/`. A new lesson or chapter shows up as its own check. A new exercise is picked up inside its chapter. You do not edit the workflow to add either one.
 
-Fork [html-practice](https://github.com/morbargig/html-practice). The fork starts from `main`. Open the **Actions** tab on your fork and enable workflows if GitHub says they are disabled. Edit `index.html` in a practice folder, commit that page, and push it to your fork.
-
-Each push tests every practice `index.html`. A page you have not edited is **not started** and fails that topic. A page you edited is tested, and a wrong answer fails that topic. The check is green only when every practice page passes. Open **Progress report** to see which pages passed, which failed, and which are still not started.
+On the Actions page, open and close each lesson:
 
 | Group | Topics |
 | --- | --- |
 | 01 · Setting up HTML | 01 · Text, 02 · Images and links, 03 · Tables and forms, 04 · Head and metadata, 05 · Personal profile |
 | 02 · Introduction to HTML | 01 · Text, 02 · Links, 03 · Lists, 04 · Semantic structure, 05 · Media and embeds, 06 · Forms, 07 · Pages |
 
-A topic runs again when a page or test in that topic changes. An unchanged topic reuses its cached result.
+Open a topic to see that chapter's exercises. Each exercise is checked twice: the practice `index.html`, then the matching page in `solutions/`.
+
+A topic runs again when a page, test, or shared test file in that chapter changes. An unchanged topic reuses its cached result.
+
+Practice results stay red until those pages are solved. Solution results should stay green. The progress report lists every exercise on one row, with both results side by side.
 
 ## Add a lesson
 
 1. Create `practices/lesson-NN/README.md` and link it from [practices/README.md](practices/README.md) and from the contents table in this file.
 2. Add chapters as `NN-topic/NN-exercise/`, each with `index.html`, `README.md`, and `test.js`. Keep the exercise names that already exist when you are only moving a lesson. Link each new README from its parent README. End each exercise README with a Live Server preview step that links to [extensions/README.md](extensions/README.md), so the student can review the page after the test.
-3. Put the finished reference page on `student/answers`, under `solutions/practices/lesson-NN/.../index.html`. Leave the practice `index.html` on `main` as the unfinished starter.
+3. Add the matching page at `solutions/practices/lesson-NN/.../index.html`.
 4. Put a Colab notebook in `labs/lesson-NN/` when that lesson has one, and add it to [labs/README.md](labs/README.md). The root README keeps the lesson 01 Colab link and points here for the rest.
 5. Add a short title to `LESSON_TITLES` in `scripts/ci_discover_matrix.py` when the Actions check should use a course name.
 
-The workflow already watches `labs/**` and `practices/**`. A new `practices/lesson-NN` folder with a README and tested chapters is picked up on the next run.
+The workflow already watches `labs/**`, `practices/**`, and `solutions/**`. A new `practices/lesson-NN` folder with a README and tested chapters is picked up on the next run.
+
+## Answer branch
+
+`student/answers` is the answer branch. On this branch the practice pages contain completed work, and `solutions/` still holds the separate reference page for each exercise. The lesson 02 notebook keeps its unfinished portal assignment. Do not copy a solution into a lab or a practice while reorganizing the folders.
