@@ -27,19 +27,25 @@ def bar(percent: float) -> str:
 
 
 def icon(status: str) -> str:
-    return "✅" if status == "pass" else "❌"
+    if status == "pass":
+        return "✅"
+    if status == "skipped":
+        return "⬜"
+    return "❌"
 
 
 def summarize(records: list[dict], mode: str) -> dict:
     rows = [row for row in records if row.get("mode") == mode]
     passed = sum(1 for row in rows if row.get("status") == "pass")
     failed = sum(1 for row in rows if row.get("status") == "fail")
-    graded = passed + failed
+    skipped = sum(1 for row in rows if row.get("status") == "skipped")
+    graded = passed + failed + skipped
     cached = sum(1 for row in rows if row.get("source") == "cache")
     percent = round((passed / graded) * 100, 2) if graded else 0
     return {
         "passed": passed,
         "failed": failed,
+        "skipped": skipped,
         "graded_total": graded,
         "cached": cached,
         "ran": graded - cached,
@@ -51,6 +57,8 @@ def cell(row) -> str:
     if not row:
         return "—"
     how = "cache" if row.get("source") == "cache" else "ran"
+    if row.get("status") == "skipped":
+        return f"{icon('skipped')} **not started** · {how}"
     return f"{icon(row.get('status', ''))} **{row.get('status', '')}** · {how}"
 
 
@@ -114,13 +122,13 @@ def markdown_table(records: list[dict]) -> str:
     lines = [
         "# HTML exercise progress",
         "",
-        "| | Passed | Failed | Cached | Ran now | Progress |",
-        "| --- | ---: | ---: | ---: | ---: | ---: |",
+        "| | Passed | Failed | Not started | Cached | Ran now | Progress |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     for mode, label in modes:
         summary = summarize(records, mode)
         lines.append(
-            f"| {label} | {summary['passed']} | {summary['failed']} | {summary['cached']} | {summary['ran']} | **{summary['percent']}%** |"
+            f"| {label} | {summary['passed']} | {summary['failed']} | {summary['skipped']} | {summary['cached']} | {summary['ran']} | **{summary['percent']}%** |"
         )
     lines.append("")
     for chapter in chapters(records):
@@ -157,7 +165,7 @@ def job_summary(records: list[dict]) -> str:
         lines.append(f"**{label}** `{bar(summary['percent'])}` **{summary['percent']}%**")
         lines.append("")
         lines.append(
-            f"{summary['passed']} passed · {summary['failed']} failed · {summary['cached']} from cache · {summary['ran']} ran now"
+            f"{summary['passed']} passed · {summary['failed']} failed · {summary['skipped']} not started · {summary['cached']} from cache · {summary['ran']} ran now"
         )
         lines.append("")
     for presentation in presentations(chapters(records)):

@@ -1,5 +1,6 @@
 'use strict';
 
+const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const { spawnSync } = require('child_process');
@@ -50,9 +51,59 @@ function required(name) {
   return value;
 }
 
+function isStarterPage(exerciseDir) {
+  const hashFile = path.join(root, 'scripts', 'starter-hashes.json');
+  if (!fs.existsSync(hashFile)) {
+    return false;
+  }
+  const hashes = JSON.parse(fs.readFileSync(hashFile, 'utf8'));
+  const rel = `${exerciseDir}/index.html`;
+  const expected = hashes[rel];
+  if (!expected) {
+    return false;
+  }
+  const htmlPath = path.join(root, exerciseDir, 'index.html');
+  if (!fs.existsSync(htmlPath)) {
+    return false;
+  }
+  const actual = crypto.createHash('sha256').update(fs.readFileSync(htmlPath)).digest('hex');
+  return actual === expected;
+}
+
+function baseRecord(mode, exerciseDir, status, message) {
+  return {
+    student_github_username: process.env.PROGRESS_STUDENT_ID || process.env.GITHUB_ACTOR || 'local',
+    last_run_utc: new Date().toISOString().replace(/\.\d{3}Z$/, 'Z'),
+    mode,
+    presentation_number: required('CI_PRESENTATION_NUMBER'),
+    presentation_title: required('CI_PRESENTATION_TITLE'),
+    chapter_number: required('CI_CHAPTER_NUMBER'),
+    chapter_title: required('CI_CHAPTER_TITLE'),
+    exercise_number: required('CI_EXERCISE_NUMBER'),
+    exercise_slug: required('CI_EXERCISE_SLUG'),
+    path: exerciseDir,
+    status,
+    source: 'run',
+    message,
+  };
+}
+
 function runExercise(options = {}) {
   const mode = required('CI_MODE');
   const exerciseDir = required('CI_EXERCISE_DIR');
+  if (mode === 'practice' && isStarterPage(exerciseDir)) {
+    const record = baseRecord(
+      mode,
+      exerciseDir,
+      'skipped',
+      'Still the starter page. Edit index.html and push to test this practice.'
+    );
+    console.log(`RESULT ${record.mode} ${record.status} ${record.message}`);
+    if (options.write !== false) {
+      return writeRecord(record);
+    }
+    return record;
+  }
   const testFile = required('CI_TEST_FILE');
   const jestBin = path.join(root, 'node_modules', 'jest', 'bin', 'jest.js');
   const outputFile = path.join(root, 'reports', 'jest-result.json');
@@ -94,21 +145,7 @@ function runExercise(options = {}) {
     message = detail.slice(0, 300) || 'Jest failed before reporting a check.';
   }
 
-  const record = {
-    student_github_username: process.env.PROGRESS_STUDENT_ID || process.env.GITHUB_ACTOR || 'local',
-    last_run_utc: new Date().toISOString().replace(/\.\d{3}Z$/, 'Z'),
-    mode,
-    presentation_number: required('CI_PRESENTATION_NUMBER'),
-    presentation_title: required('CI_PRESENTATION_TITLE'),
-    chapter_number: required('CI_CHAPTER_NUMBER'),
-    chapter_title: required('CI_CHAPTER_TITLE'),
-    exercise_number: required('CI_EXERCISE_NUMBER'),
-    exercise_slug: required('CI_EXERCISE_SLUG'),
-    path: exerciseDir,
-    status,
-    source: 'run',
-    message,
-  };
+  const record = baseRecord(mode, exerciseDir, status, message);
   console.log(`RESULT ${record.mode} ${record.status} ${record.message}`);
   if (options.write !== false) {
     return writeRecord(record);
@@ -117,7 +154,7 @@ function runExercise(options = {}) {
 }
 
 function finish(record) {
-  process.exit(record.status === 'pass' ? 0 : 1);
+  process.exit(record.status === 'fail' ? 1 : 0);
 }
 
 if (require.main === module) {

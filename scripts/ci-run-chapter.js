@@ -30,7 +30,13 @@ function exercisesIn(chapterPath) {
 }
 
 function icon(status) {
-  return status === 'pass' ? '✅' : '❌';
+  if (status === 'pass') return '✅';
+  if (status === 'skipped') return '⬜';
+  return '❌';
+}
+
+function statusLabel(status) {
+  return status === 'skipped' ? 'not started' : status;
 }
 
 function hasSolutionPage(exerciseDir) {
@@ -62,7 +68,7 @@ function writeChapterSummary(records) {
   bySlug.forEach((modes, slug) => {
     const practice = modes.practice;
     const solutions = modes.solutions;
-    const cell = (row) => (row ? `${icon(row.status)} **${row.status}**` : '—');
+    const cell = (row) => (row ? `${icon(row.status)} **${statusLabel(row.status)}**` : '—');
     lines.push(
       includeSolutions
         ? `| ${humanize(slug)} | ${cell(practice)} | ${cell(solutions)} |`
@@ -131,7 +137,7 @@ function fromCache() {
 
 try {
   const records = process.env.CI_FROM_CACHE === '1' ? fromCache() : runChapter();
-  const failed = records.some((record) => record.status !== 'pass');
+  const failed = records.some((record) => record.status === 'fail');
   process.exit(failed ? 1 : 0);
 } catch (error) {
   console.error(error && error.message ? error.message : error);
