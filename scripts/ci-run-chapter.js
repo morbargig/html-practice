@@ -135,10 +135,22 @@ function fromCache() {
   return records;
 }
 
+function annotate(records) {
+  records.forEach((record) => {
+    if (record.status === 'pass') {
+      return;
+    }
+    const title = record.status === 'skipped' ? 'Not started' : 'Failed';
+    const file = `${record.path}/index.html`;
+    console.log(`::error title=${title},file=${file}::${record.path}: ${record.message}`);
+  });
+}
+
 try {
   const records = process.env.CI_FROM_CACHE === '1' ? fromCache() : runChapter();
-  const failed = records.some((record) => record.status === 'fail');
-  process.exit(failed ? 1 : 0);
+  annotate(records);
+  const incomplete = records.some((record) => record.status !== 'pass');
+  process.exit(incomplete ? 1 : 0);
 } catch (error) {
   console.error(error && error.message ? error.message : error);
   process.exit(1);

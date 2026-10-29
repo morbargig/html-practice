@@ -118,9 +118,9 @@ jobs:
     if: always()
     runs-on: ubuntu-24.04
     steps:
-      - name: Fail if any exercise failed
+      - name: Fail unless every practice passed
         run: |
           if [[ "${{ needs.presentation_suite.result }}" != "success" ]]; then
-            echo "One or more exercise jobs failed (result=${{ needs.presentation_suite.result }})."
+            echo "The run is incomplete. A topic fails when a page is still the starter or an answer is wrong (result=${{ needs.presentation_suite.result }})."
             exit 1
           fi
