@@ -140,31 +140,17 @@ function annotate(records) {
     if (record.status === 'pass') {
       return;
     }
+    const title = record.status === 'skipped' ? 'Not started' : 'Failed';
     const file = `${record.path}/index.html`;
-    if (record.status === 'skipped') {
-      console.log(`::notice title=Not started,file=${file}::${record.path}: ${record.message}`);
-      return;
-    }
-    console.log(`::error title=Failed,file=${file}::${record.path}: ${record.message}`);
+    console.log(`::error title=${title},file=${file}::${record.path}: ${record.message}`);
   });
-}
-
-function chapterFailed(records) {
-  const practice = records.filter((record) => record.mode === 'practice');
-  if (records.some((record) => record.status === 'fail')) {
-    return true;
-  }
-  if (!practice.some((record) => record.status !== 'skipped')) {
-    console.log('::error::This topic is not started. Edit a practice index.html and push to test it.');
-    return true;
-  }
-  return false;
 }
 
 try {
   const records = process.env.CI_FROM_CACHE === '1' ? fromCache() : runChapter();
   annotate(records);
-  process.exit(chapterFailed(records) ? 1 : 0);
+  const incomplete = records.some((record) => record.status !== 'pass');
+  process.exit(incomplete ? 1 : 0);
 } catch (error) {
   console.error(error && error.message ? error.message : error);
   process.exit(1);
