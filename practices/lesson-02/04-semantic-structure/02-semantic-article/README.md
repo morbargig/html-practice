@@ -36,5 +36,20 @@ npm test -- 02-semantic-article
 
 `npm test` checks every practice.
 
+The concept notes are in [the study guide](../../../../curriculum/modules/html.semantics/study-guide.md).
+
+## 🔧 Debugging
+- Keep `lang="en"` and the title `Campus News`. The `<h1>` matches that title.
+- The article and the schedule section are inside `<main>`, with ids `story` and `notes`.
+- A heading that skips a level fails even when the words are right.
+- The aside text is `Bring a notebook.` The footer is `© 2026 Campus News`.
+
+## ❓ Conceptual questions
+1. Why is the fair an `<article>` and the schedule a `<section>`?
+2. Which landmarks did the profile page already require?
+
+## 🌱 Extension
+Sketch a one-story page for a different event in a scratch file, with one aside. Do not replace Campus News. The extension is not graded.
+
 ## 👀 Preview
 Open `index.html` with Live Server and review the page in the browser. Install steps are in [extensions/README.md](../../../../extensions/README.md).

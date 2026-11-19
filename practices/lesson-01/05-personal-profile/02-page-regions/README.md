@@ -31,5 +31,20 @@ npm test -- 02-page-regions
 
 `npm test` checks every practice.
 
+The concept notes are in [the study guide](../../../../curriculum/modules/html.profile/study-guide.md).
+
+## 🔧 Debugging
+- The five regions are `<header>`, `<nav>`, `<main>`, `<section>`, and `<footer>`. A class named header is not a header.
+- `#about` and `#contact` need elements whose ids are `about` and `contact`.
+- The bio on this page is `I am learning HTML.` The full profile uses a longer sentence.
+- Do not edit `test.js`.
+
+## ❓ Conceptual questions
+1. Why does clicking About do nothing when the id is `About`?
+2. Which sentence belongs only to this skeleton?
+
+## 🌱 Extension
+Add a third nav item on a scratch page and give it a matching id. This exercise has two links. The extension is not graded.
+
 ## 👀 Preview
 Open `index.html` with Live Server and review the page in the browser. Install steps are in [extensions/README.md](../../../../extensions/README.md).

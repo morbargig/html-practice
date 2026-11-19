@@ -34,5 +34,20 @@ npm test -- 01-video-and-audio
 
 `npm test` checks every practice.
 
+The concept notes are in [the study guide](../../../../curriculum/modules/html.media/study-guide.md).
+
+## 🔧 Debugging
+- Use `<source>` children. A `src` on `<video>` alone does not satisfy the source check.
+- Types are `video/mp4`, `video/webm`, and `audio/mpeg`. `mp4` by itself fails.
+- Both elements need `controls`.
+- The media files are not in the repo. A broken player can still be a pass.
+
+## ❓ Conceptual questions
+1. Why list two video files?
+2. Why is a 404 in the player not the test result?
+
+## 🌱 Extension
+Mark up a lecture with different filenames in a scratch file. This folder keeps `media/clip.mp4`, `media/clip.webm`, and `media/theme.mp3`. The extension is not graded.
+
 ## 👀 Preview
 Open `index.html` with Live Server and review the page in the browser. Install steps are in [extensions/README.md](../../../../extensions/README.md).

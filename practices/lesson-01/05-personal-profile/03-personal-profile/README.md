@@ -46,5 +46,20 @@ npm test -- 03-personal-profile
 
 `npm test` checks every practice.
 
+The concept notes are in [the study guide](../../../../curriculum/modules/html.profile/study-guide.md).
+
+## 🔧 Debugging
+- Use the long bio, `I am learning to build web pages with HTML.` The skeleton sentence fails here.
+- The image path is `images/photo.jpg` and the alt is `Alex Rivera`.
+- Skills are `HTML`, `Accessibility`, `Tables`. The message is a `<textarea>`. Labels use `for` and `id`.
+- The GitHub link text is `GitHub` and the href is `https://github.com/alexrivera`.
+
+## ❓ Conceptual questions
+1. Why is the message not an `<input>`?
+2. What does this page still not include that lesson 02's About Me page will require?
+
+## 🌱 Extension
+Draft a one-paragraph bio for someone else in a scratch file. This page stays Alex Rivera. The extension is not graded.
+
 ## 👀 Preview
 Open `index.html` with Live Server and review the page in the browser. Install steps are in [extensions/README.md](../../../../extensions/README.md).

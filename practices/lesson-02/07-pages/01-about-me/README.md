@@ -37,5 +37,21 @@ npm test -- 01-about-me
 
 `npm test` checks every practice.
 
+The concept notes are in [the study guide](../../../../curriculum/modules/html.about-me/study-guide.md).
+
+## 🔧 Debugging
+- This is not the lesson 01 profile and not the loose Lab 01 About Me page.
+- Alt text is exactly `Portrait of Alex Rivera`. The list is Hiking, Cooking, Music.
+- `#interests` needs an element with `id="interests"`. The footer id is `profiles`.
+- One `<h1>`, inside `<header>`, with no skipped heading level.
+- Any link with no text, or with the text `click here` or `here`, fails.
+
+## ❓ Conceptual questions
+1. Why does a green Lab 01 final cell not pass this exercise?
+2. Why does the word Interests in a heading not create the fragment by itself?
+
+## 🌱 Extension
+Write a three-item interest list for someone else in a scratch file. This page keeps Hiking, Cooking, and Music. The extension is not graded.
+
 ## 👀 Preview
 Open `index.html` with Live Server and review the page in the browser. Install steps are in [extensions/README.md](../../../../extensions/README.md).

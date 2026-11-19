@@ -28,5 +28,20 @@ npm test -- 02-simple-form
 
 `npm test` checks every practice.
 
+The concept notes are in [the study guide](../../../../curriculum/modules/html.tables-forms/study-guide.md).
+
+## 🔧 Debugging
+- The label, the email input, and the `Send` button have to be inside the one `<form>`.
+- The label text is `Email:` including the colon.
+- `type` must be `email`, and the input must be `required`.
+- `for` and `id` are the next exercise, not this one.
+
+## ❓ Conceptual questions
+1. Why does a button below the form, outside the tag, fail?
+2. What does `required` change about an empty submit?
+
+## 🌱 Extension
+Add a second optional note field on a scratch form. This exercise expects one input. The extension is not graded.
+
 ## 👀 Preview
 Open `index.html` with Live Server and review the page in the browser. Install steps are in [extensions/README.md](../../../../extensions/README.md).

@@ -37,6 +37,8 @@ Assignments and class materials are in [Google Classroom](https://classroom.goog
 
 Notebook: [lesson-01/lab-01-html-fundamentals.ipynb](lesson-01/lab-01-html-fundamentals.ipynb)
 
+Study notes: [html.lab-fundamentals](../curriculum/modules/html.lab-fundamentals/study-guide.md).
+
 Topics:
 
 - HTML document structure
@@ -54,6 +56,8 @@ Topics:
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/morbargig/html-practice/blob/main/labs/lesson-02/Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
 
 Notebook: [lesson-02/Lab_02_Advanced_HTML_Native_Interactivity.ipynb](lesson-02/Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
+
+Study notes: [html.lab-interactivity](../curriculum/modules/html.lab-interactivity/study-guide.md).
 
 The notebook saves each exercise as an HTML file and previews it in Colab.
 

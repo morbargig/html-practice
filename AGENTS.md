@@ -7,6 +7,7 @@ The root [README.md](README.md) is the map of this repository. Keep that file sh
 | Topic | File | What belongs there |
 | --- | --- | --- |
 | Course map | [README.md](README.md) | Table of contents, one-paragraph summaries, the lesson 01 Colab badge, install, tests, and CI |
+| Curriculum | [curriculum/README.md](curriculum/README.md) | Module specifications, study guides, presentation outlines, podcast briefs, and assessments |
 | Labs | [labs/README.md](labs/README.md) | Fork steps, every notebook, lab topics, and preview notes |
 | Practices | [practices/README.md](practices/README.md) | The lesson list |
 | A lesson | `practices/lesson-NN/README.md` | That lesson's chapters |

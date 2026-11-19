@@ -26,5 +26,19 @@ npm test -- 03-accessible-labels
 
 `npm test` checks every practice.
 
+The concept notes are in [the study guide](../../../../curriculum/modules/html.tables-forms/study-guide.md).
+
+## 🔧 Debugging
+- `for="email"` and `id="email"` must be the same token. Case differs.
+- The label text, the email type, `required`, and the `Send` button still apply.
+- A label wrapped around the input without `for` is not this check.
+
+## ❓ Conceptual questions
+1. What does the matching token do when the reader clicks `Email:`?
+2. Why did the previous exercise pass without `for`?
+
+## 🌱 Extension
+Connect a label to a field named `topic` on a scratch form. This folder stays on `email`. The extension is not graded.
+
 ## 👀 Preview
 Open `index.html` with Live Server and review the page in the browser. Install steps are in [extensions/README.md](../../../../extensions/README.md).

@@ -30,5 +30,20 @@ npm test -- 01-article-and-aside
 
 `npm test` checks every practice.
 
+The concept notes are in [the study guide](../../../../curriculum/modules/html.semantics/study-guide.md).
+
+## 🔧 Debugging
+- The post's heading and paragraph have to be inside `<article>`.
+- The note's heading and paragraph have to be inside `<aside>`.
+- Both titles are `<h2>`. Swapping the paragraphs fails the parent check.
+- Do not edit `test.js`.
+
+## ❓ Conceptual questions
+1. What does "stands on its own" change about the element you choose?
+2. Why is the aside not a second article?
+
+## 🌱 Extension
+Mark a short match report as an article and a gate time as an aside in a scratch file. This folder keeps the lesson sentences. The extension is not graded.
+
 ## 👀 Preview
 Open `index.html` with Live Server and review the page in the browser. Install steps are in [extensions/README.md](../../../../extensions/README.md).

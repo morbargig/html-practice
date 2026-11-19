@@ -39,5 +39,21 @@ npm test -- 01-complete-form
 
 `npm test` checks every practice.
 
+The concept notes are in [the study guide](../../../../curriculum/modules/html.forms-complete/study-guide.md).
+
+## 🔧 Debugging
+- `action="/submit"` and `method="post"`. The server does not need to exist.
+- Each label's `for` matches the control `id`, and each control's `name` matches that id.
+- Label texts are exact, including `Email Address` and `Full Name`. The early form's `Email:` fails here.
+- Age needs `min="0"` and `max="120"`. Message is a required `<textarea>`.
+- One button, `type="submit"`, text `Send Message`.
+
+## ❓ Conceptual questions
+1. Why can a label be connected and the field still be missing from a submission?
+2. Which controls in Lab 02 are outside this test?
+
+## 🌱 Extension
+Describe a library form that posts somewhere other than `/submit`. Do not change this file's action. The extension is not graded.
+
 ## 👀 Preview
 Open `index.html` with Live Server and review the page in the browser. Install steps are in [extensions/README.md](../../../../extensions/README.md).

@@ -28,5 +28,20 @@ npm test -- 02-comments
 
 `npm test` checks every practice.
 
+The concept notes are in [the study guide](../../../../curriculum/modules/html.document-head/study-guide.md).
+
+## 🔧 Debugging
+- If you can see the sentence on the page, it is not a comment.
+- The comment text is `This section displays the main title`.
+- The visible heading is an `<h1>` whose text is `My Page`.
+- Putting that sentence in the heading fails both checks.
+
+## ❓ Conceptual questions
+1. Who is an HTML comment for?
+2. Why is the `<h1>` still required beside the comment?
+
+## 🌱 Extension
+Leave yourself a different comment on a scratch page, and keep a visible heading. This folder keeps the lesson sentence. The extension is not graded.
+
 ## 👀 Preview
 Open `index.html` with Live Server and review the page in the browser. Install steps are in [extensions/README.md](../../../../extensions/README.md).

@@ -11,6 +11,7 @@ Lessons use the same numbering in `labs/` and `practices/`. A lesson folder is c
 | [Google Classroom](#google-classroom) | Class assignments |
 | [Labs](#labs) | [labs/README.md](labs/README.md) |
 | [Practices](#practices) | [practices/README.md](practices/README.md) |
+| [Curriculum](#curriculum) | [curriculum/README.md](curriculum/README.md) |
 | [Lesson 01 practices](#practices) | [practices/lesson-01/README.md](practices/lesson-01/README.md) |
 | [Lesson 02 practices](#practices) | [practices/lesson-02/README.md](practices/lesson-02/README.md) |
 | [Playground](#playground) | [playground/README.md](playground/README.md) |
@@ -47,6 +48,10 @@ Notebook: [labs/lesson-01/lab-01-html-fundamentals.ipynb](labs/lesson-01/lab-01-
 
 Topics: document structure, headings, paragraphs, lists, links, images, semantic HTML, and a final About Me page.
 
+## Curriculum
+
+[curriculum/README.md](curriculum/README.md) is the learning pathway, the study guides, and the classroom outlines. The exercises stay in [practices/README.md](practices/README.md).
+
 ## Practices
 
 You edit `index.html` in an exercise folder, read that folder's `README.md`, and run its test. The lesson list is in [practices/README.md](practices/README.md).
@@ -67,6 +72,8 @@ You edit `index.html` in an exercise folder, read that folder's `README.md`, and
 ## Repository structure
 
 ```text
+curriculum/
+  README.md     Learning pathway and module study materials
 labs/
   README.md     Lab guide, fork steps, and both notebooks
   lesson-01/    HTML Fundamentals notebook
