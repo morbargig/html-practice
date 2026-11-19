@@ -2,7 +2,7 @@
 
 Hands-on HTML exercises for students who are learning to structure a web page. Each practice is a small page, a short brief, and an automated test. The tests look at the document the browser would build, so a passing result means the page has the right elements, text, and attributes.
 
-Lessons use the same numbering in `labs/` and `practices/`. A lesson folder is created only when that lesson has a lab or a practice set.
+A lesson folder is created only when that lesson has a lab or a practice set. Labs 01 and 02 keep their notebook numbers. Lesson 03 is the practice set for the Lab 02 topics.
 
 ## Contents
 
@@ -14,6 +14,7 @@ Lessons use the same numbering in `labs/` and `practices/`. A lesson folder is c
 | [Curriculum](#curriculum) | [curriculum/README.md](curriculum/README.md) |
 | [Lesson 01 practices](#practices) | [practices/lesson-01/README.md](practices/lesson-01/README.md) |
 | [Lesson 02 practices](#practices) | [practices/lesson-02/README.md](practices/lesson-02/README.md) |
+| [Lesson 03 practices](#lesson-03--advanced-html-and-native-interactivity) | [practices/lesson-03/README.md](practices/lesson-03/README.md) |
 | [Playground](#playground) | [playground/README.md](playground/README.md) |
 | [Extensions](#extensions) | [extensions/README.md](extensions/README.md) |
 | [Repository structure](#repository-structure) | Folders in this repo |
@@ -60,6 +61,23 @@ You edit `index.html` in an exercise folder, read that folder's `README.md`, and
 | --- | --- |
 | 01 — Setting Up Your HTML Development Environment | [practices/lesson-01/README.md](practices/lesson-01/README.md) |
 | 02 — Introduction to HTML | [practices/lesson-02/README.md](practices/lesson-02/README.md) |
+| 03 — Advanced HTML and Native Interactivity | [practices/lesson-03/README.md](practices/lesson-03/README.md) |
+
+## Lesson 03 — Advanced HTML and native interactivity
+
+Finish [lesson 02](practices/lesson-02/README.md) first. These practices follow the Lab 02 notebook. They do not replace it. The notebook stays in [labs/README.md](labs/README.md).
+
+| Chapter | README |
+| --- | --- |
+| 01 — Attributes | [practices/lesson-03/01-attributes/README.md](practices/lesson-03/01-attributes/README.md) |
+| 02 — Inputs | [practices/lesson-03/02-inputs/README.md](practices/lesson-03/02-inputs/README.md) |
+| 03 — Fieldset | [practices/lesson-03/03-fieldset/README.md](practices/lesson-03/03-fieldset/README.md) |
+| 04 — Datalist | [practices/lesson-03/04-datalist/README.md](practices/lesson-03/04-datalist/README.md) |
+| 05 — Details | [practices/lesson-03/05-details/README.md](practices/lesson-03/05-details/README.md) |
+| 06 — Popover | [practices/lesson-03/06-popover/README.md](practices/lesson-03/06-popover/README.md) |
+| 07 — Dialog | [practices/lesson-03/07-dialog/README.md](practices/lesson-03/07-dialog/README.md) |
+| 08 — Progress and meter | [practices/lesson-03/08-progress-meter/README.md](practices/lesson-03/08-progress-meter/README.md) |
+| 09 — Student portal | [practices/lesson-03/09-student-portal/README.md](practices/lesson-03/09-student-portal/README.md) |
 
 ## Playground
 
@@ -82,6 +100,7 @@ practices/
   README.md     Practice lesson list
   lesson-01/    Setting Up Your HTML Development Environment
   lesson-02/    Introduction to HTML
+  lesson-03/    Advanced HTML and Native Interactivity
 playground/
   README.md     What the sample pages demonstrate
   index.html    Bird notebook: table, links, form, and images
@@ -94,18 +113,19 @@ extensions/
 
 ## Recommended order
 
-Finish lesson 01 before lesson 02. Inside a lesson, finish each chapter before the next one. Lesson 02 also includes the Colab lab in [labs/README.md](labs/README.md).
+Finish lesson 01 before lesson 02, and lesson 02 before lesson 03. Inside a lesson, finish each chapter before the next one. Lesson 02 also includes the Colab lab in [labs/README.md](labs/README.md). Lesson 03 practices the same advanced topics beside that lab.
 
 | Lesson | Next README |
 | --- | --- |
 | [01 — Setting Up Your HTML Development Environment](practices/lesson-01/README.md) | Text, Images and Links, Tables and Forms, Head and Metadata, Personal Profile |
 | [02 — Introduction to HTML](practices/lesson-02/README.md) | Text, Links, Lists, Semantic Structure, Media and Embeds, Forms, Pages, and the Colab lab |
+| [03 — Advanced HTML and Native Interactivity](practices/lesson-03/README.md) | Attributes, Inputs, Fieldset, Datalist, Details, Popover, Dialog, Progress and Meter, Student Portal |
 
 ## Who it is for
 
 Students who are new to HTML and can open a folder in VS Code. You edit `index.html`. In [Link a Stylesheet](practices/lesson-01/04-head-and-metadata/03-link-a-stylesheet/README.md), you also connect a `style.css` file. You do not need a browser to run the tests. Use Live Server, listed in [extensions/README.md](extensions/README.md), when you want to review the page.
 
-CSS properties such as color, fonts, the box model, and layout are not in this set. The third course presentation could not be opened (it asks for a Google sign-in), so those topics were left out rather than guessed.
+CSS properties such as color, fonts, the box model, and layout are not in this set. Lesson 03 follows the Lab 02 notebook: attributes, advanced inputs, and native interactive elements, still in HTML only.
 
 ## How a practice works
 
@@ -196,6 +216,7 @@ Each push tests every practice `index.html`. A page you have not edited is **not
 | --- | --- |
 | 01 · Setting up HTML | 01 · Text, 02 · Images and links, 03 · Tables and forms, 04 · Head and metadata, 05 · Personal profile |
 | 02 · Introduction to HTML | 01 · Text, 02 · Links, 03 · Lists, 04 · Semantic structure, 05 · Media and embeds, 06 · Forms, 07 · Pages |
+| 03 · Advanced HTML | 01 · Attributes, 02 · Inputs, 03 · Fieldset, 04 · Datalist, 05 · Details, 06 · Popover, 07 · Dialog, 08 · Progress meter, 09 · Student portal |
 
 A topic runs again when a page or test in that topic changes. An unchanged topic reuses its cached result.
 

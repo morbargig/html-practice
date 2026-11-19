@@ -24,5 +24,14 @@
   "practices/lesson-02/05-media-and-embeds/01-video-and-audio/index.html": "3fd3bf7efb0d639effc1192bd9139569aa7f8981a69acc31128501b755427824",
   "practices/lesson-02/05-media-and-embeds/02-captions-and-embeds/index.html": "7c75cd21be5779ee827a3d32b798d53c5ee30af31193f4b28fa549fd0acc0fb4",
   "practices/lesson-02/06-forms/01-complete-form/index.html": "623752e87106e02d46c1514f01a06b777c883ebda497673edf032acd4ab9851d",
-  "practices/lesson-02/07-pages/01-about-me/index.html": "f70781c3c6d500508a981c42a9cb5701dd1ebca34bc33ffeabbf8bb9d1452c2b"
+  "practices/lesson-02/07-pages/01-about-me/index.html": "f70781c3c6d500508a981c42a9cb5701dd1ebca34bc33ffeabbf8bb9d1452c2b",
+  "practices/lesson-03/01-attributes/01-profile-page/index.html": "22487368d74457e6190dcb608ab589470789dbb1a55b2a1411fb799469cd358c",
+  "practices/lesson-03/02-inputs/01-preferences-form/index.html": "b8836527de38103db276735281d3a9c2610d94b86b814e93f6b1ab900ac020d2",
+  "practices/lesson-03/03-fieldset/01-registration-sections/index.html": "92e0e30460c34a035aab911f72b1ed357421e5f91280e8bb0ace865fd08eb8f9",
+  "practices/lesson-03/04-datalist/01-course-selection/index.html": "556a8166708b364d9ffed848671f7c12d7064357c21d36e25e86b0006c8917cc",
+  "practices/lesson-03/05-details/01-expandable-faq/index.html": "383b28753131fa2b0b8f18c4459ea0d56f5015ccb13b243e48cd50c7e70cca5d",
+  "practices/lesson-03/06-popover/01-help-popover/index.html": "b45c3bf60a6aa73169f14f6eda0352bda32bebb66fc8399722054f73b312697a",
+  "practices/lesson-03/07-dialog/01-native-dialog/index.html": "f83de3fc9ba0cb4b5ff2b39765f39a420ce8aa3df4e991c39a114992e6a00474",
+  "practices/lesson-03/08-progress-meter/01-academic-status/index.html": "a9e4c6af5318f7171ff2f50e4e5f7f8c04c79784c3c03714baa52dd01c56fcf8",
+  "practices/lesson-03/09-student-portal/01-interactive-portal/index.html": "e6bf0e1b4d72f540afa719b2e5d9ee148789dd76b39525fe70ef6658bb82f3c1"
 }

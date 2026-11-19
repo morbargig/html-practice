@@ -33,6 +33,6 @@ The text links above are the pattern. Every existing module uses the same five f
 | [html.forms-complete](modules/html.forms-complete/specification.md) | Existing | [Lesson 02 — Forms](../practices/lesson-02/06-forms/README.md) |
 | [html.about-me](modules/html.about-me/specification.md) | Existing | [Lesson 02 — Pages](../practices/lesson-02/07-pages/README.md) |
 | [html.lab-fundamentals](modules/html.lab-fundamentals/specification.md) | Existing | [Lab 01](../labs/README.md) |
-| [html.lab-interactivity](modules/html.lab-interactivity/specification.md) | Existing | [Lab 02](../labs/README.md) |
+| [html.lab-interactivity](modules/html.lab-interactivity/specification.md) | Existing | [Lab 02](../labs/README.md) and [Lesson 03](../practices/lesson-03/README.md) |
 
 CSS presentation continues in [css-practice](https://github.com/morbargig/css-practice). Proposed modules that are not exercises yet are listed in [learning-path.md](learning-path.md). Words used by the docs and by GitHub Actions are in [glossary.md](glossary.md).

@@ -1,14 +1,14 @@
 # Study guide: Lab 02
 
-Module [html.lab-interactivity](specification.md). The notebook is [Lab 02](../../../labs/lesson-02/Lab_02_Advanced_HTML_Native_Interactivity.ipynb). Fork first, then open Colab from your copy, as [labs/README.md](../../../labs/README.md) describes.
+Module [html.lab-interactivity](specification.md). The notebook is [Lab 02](../../../labs/lesson-02/Lab_02_Advanced_HTML_Native_Interactivity.ipynb). The Jest pages are [Lesson 03](../../../practices/lesson-03/README.md). Fork first, then open Colab from your copy, as [labs/README.md](../../../labs/README.md) describes.
 
 ## What the lab is
 
-Lesson 02's practices grade exact documents with Jest. This lab is a guided HTML-only portal: attributes, a second fieldset, a datalist, disclosure widgets, a dialog, a progress bar, and a meter. Nothing in the notebook calls `check()`. A wrong tag does not turn a cell red by itself. You compare your page with the task sentence and the self-check list.
+Lesson 03 grades these controls with Jest. This lab is the guided HTML-only portal for the same topics. The notebook's `check()` reads tags and attributes. It does not click the preview. You still compare the page with the task sentence and the self-check list.
 
-## Why these controls are not in the practices
+## Where the practices are
 
-The complete-form exercise already posts named fields. It does not ask for a `select`, a datalist, or a dialog. Those controls are easy to confuse with one another, so the lab gives them a notebook instead of slipping them into the form test. A later Jest module would be a new approval, not a silent extra assertion.
+The graded pages are in [Lesson 03](../../../practices/lesson-03/README.md). They do not replace the notebook, and the notebook does not replace them. The complete-form exercise still does not ask for a datalist or a dialog. `select`, radio, and checkbox are still not a Jest exercise.
 
 ## How the pieces differ
 
@@ -16,7 +16,7 @@ The complete-form exercise already posts named fields. It does not ask for a `se
 
 `details` and `summary` disclose extra text, such as an FAQ answer. A popover is a transient layer. `dialog` is a modal in this lab. The starter uses `commandfor` and `command` on buttons to show and close it. Those attributes need a current browser. Colab's embedded preview can refuse them. Download the HTML and open it with Live Server, as the labs guide says.
 
-`progress` is how far a task has gone. The starter uses `value="70"` and `max="100"`. `meter` is a measurement inside a range. The starter uses `value="0.8"` with `min`, `max`, `low`, `high`, and `optimum`. Changing the numbers is fine if you can say which element is completion and which is a gauge. The lab does not store a required percentage.
+`progress` is how far a task has gone. The notebook starter uses `value="70"` and `max="100"`. `meter` is a measurement inside a range. The notebook starter uses `value="0.8"` with `min`, `max`, `low`, `high`, and `optimum`. Changing the numbers is fine in the notebook if you can say which element is completion and which is a gauge. The lesson 03 academic status exercise fixes the numbers: progress is 70 of 100, and the meter is 80 on a 0–100 scale.
 
 The final cell lists the portal pieces, including two fieldsets, a datalist, FAQ details, a dialog, and both progress and meter. The HTML comment says to replace the starter. Keep the page free of JavaScript. The labs guide says the page uses HTML only.
 
@@ -26,7 +26,7 @@ The final cell lists the portal pieces, including two fieldsets, a datalist, FAQ
 - Testing the dialog only inside Colab and concluding the attributes are fictional.
 - Using `meter` for "70% of the course is done". That story is `progress`.
 - Adding a script to open the dialog because `command` was unfamiliar. Try a current browser first.
-- Treating a finished notebook as a pass on `01-complete-form`.
+- Treating a finished notebook as a pass on `01-complete-form` or on a lesson 03 practice. The notebook and the practice page are separate files.
 
 ## How to debug
 
@@ -40,12 +40,13 @@ The final cell lists the portal pieces, including two fieldsets, a datalist, FAQ
 1. What can a user type into a datalist that a `select` would refuse?
 2. Why might a correct dialog fail in Colab and work in Chrome?
 3. Which element is course completion, and which is a gauge?
-4. Why is this lab absent from `npm test`?
+4. Does `npm test` grade the notebook?
 
-A datalist allows other text. Colab's preview is limited. `progress` is completion. `meter` is the gauge. The notebook has no Jest file.
+A datalist allows other text. Colab's preview is limited. `progress` is completion. `meter` is the gauge. The notebook has no Jest file. [Lesson 03](../../../practices/lesson-03/README.md) is what `npm test` grades, and a passing test still does not click the popover or the dialog.
 
 ## References
 
 - Notebook: [Lab_02_Advanced_HTML_Native_Interactivity.ipynb](../../../labs/lesson-02/Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
 - MDN: [`datalist`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/datalist), [`dialog`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog), [`progress`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/progress), [`meter`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meter)
 - The graded form, which stops earlier: [A Complete Form](../../../practices/lesson-02/06-forms/01-complete-form/README.md)
+- Practices: [Lesson 03](../../../practices/lesson-03/README.md)

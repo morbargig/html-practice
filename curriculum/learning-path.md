@@ -23,15 +23,15 @@ Study notes for each row are linked from [curriculum/README.md](README.md).
 | [html.forms-complete](modules/html.forms-complete/specification.md) | A form that posts named, typed controls | [Lesson 02 — Forms](../practices/lesson-02/06-forms/README.md) |
 | [html.about-me](modules/html.about-me/specification.md) | A combined About Me page | [Lesson 02 — Pages](../practices/lesson-02/07-pages/README.md) |
 | [html.lab-fundamentals](modules/html.lab-fundamentals/specification.md) | The lesson 01 Colab notebook | [Lab 01](../labs/README.md) |
-| [html.lab-interactivity](modules/html.lab-interactivity/specification.md) | The lesson 02 Colab notebook | [Lab 02](../labs/README.md) |
+| [html.lab-interactivity](modules/html.lab-interactivity/specification.md) | The lesson 02 Colab notebook and the lesson 03 practices | [Lab 02](../labs/README.md) and [Lesson 03](../practices/lesson-03/README.md) |
 
 `html.lists` and `html.semantics` revisit the list and the landmarks from `html.profile`. The later modules add ordered lists, `article`, and `aside`.
 
-`html.lab-fundamentals` overlaps the early practices with looser checks. `html.lab-interactivity` covers controls the Jest exercises do not grade.
+`html.lab-fundamentals` overlaps the early practices with looser checks. `html.lab-interactivity` is the Colab notebook. Lesson 03 grades those controls. `select`, radio, and checkbox stay in the proposed `html.forms-choices` module.
 
 ## HTML, proposed
 
-These are not exercises. Add them only after a separate approval, and do not duplicate Lab 02 by copying it into `practices/` until that mapping is approved.
+These are not exercises yet. Lesson 03 is the approved practice set for the Lab 02 controls other than `select`, radio, and checkbox.
 
 | ID | Why it is listed | Depends on |
 | --- | --- | --- |

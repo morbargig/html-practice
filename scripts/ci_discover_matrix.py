@@ -22,6 +22,7 @@ EXERCISE_RE = re.compile(r"^(\d{2})-")
 LESSON_TITLES = {
     "lesson-01": "Setting up HTML",
     "lesson-02": "Introduction to HTML",
+    "lesson-03": "Advanced HTML",
 }
 
 def repo_root() -> Path:

@@ -57,7 +57,7 @@ Topics:
 
 Notebook: [lesson-02/Lab_02_Advanced_HTML_Native_Interactivity.ipynb](lesson-02/Lab_02_Advanced_HTML_Native_Interactivity.ipynb)
 
-Study notes: [html.lab-interactivity](../curriculum/modules/html.lab-interactivity/study-guide.md).
+Study notes: [html.lab-interactivity](../curriculum/modules/html.lab-interactivity/study-guide.md). The same topics are practiced in [lesson 03](../practices/lesson-03/README.md). That lesson does not replace this notebook.
 
 The notebook saves each exercise as an HTML file and previews it in a frame in the notebook. Popovers and dialogs open inside that frame.
 
