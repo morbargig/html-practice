@@ -59,7 +59,7 @@ Notebook: [lesson-02/Lab_02_Advanced_HTML_Native_Interactivity.ipynb](lesson-02/
 
 Study notes: [html.lab-interactivity](../curriculum/modules/html.lab-interactivity/study-guide.md).
 
-The notebook saves each exercise as an HTML file and previews it in Colab.
+The notebook saves each exercise as an HTML file and previews it in a frame in the notebook. Popovers and dialogs open inside that frame.
 
 - Setup: HTML preview helper
 - Exercise A — Attributes and advanced inputs
@@ -71,4 +71,4 @@ The notebook saves each exercise as an HTML file and previews it in Colab.
 
 Topics: attributes, advanced inputs, fieldsets, datalist, details/summary, popovers, dialogs, progress, and meter.
 
-Colab's preview can restrict popovers and dialogs. Download the HTML file and open it in a current browser with VS Code and Live Server. Install steps are in [extensions/README.md](../extensions/README.md). Dialog buttons use `command` and `commandfor`, which need a current browser. The page uses HTML only.
+Dialog buttons use `command` and `commandfor`, which need Chrome 135+, Edge 135+, Firefox 144+, or Safari 26.2+. Download the finished HTML file and open it in a current browser before you submit. VS Code and Live Server steps are in [extensions/README.md](../extensions/README.md). The page uses HTML only.
